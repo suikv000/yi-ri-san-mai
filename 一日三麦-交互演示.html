@@ -1,0 +1,2201 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff"><meta name="description" content="一日三麦 Skill 交互演示：周日排好一周，预算、通勤和口味一起考虑。">
+  <title>一日三麦 · 预算内，吃一周好套餐</title>
+  <link rel="icon" href="data:,">
+  <style>
+@charset "UTF-8";
+:root{--paper:#f4f1e9;--white:#fffefa;--ink:#282828;--muted:#74766c;--line:#e2e2d8;--yellow:#ffce43;--green:#525252;--red:#a54332;--soft:#ececec;--radius:18px;font-family:Inter,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;color:var(--ink);background:var(--paper);font-synthesis:none}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:85px}body{margin:0}button,input,select{font:inherit}button,a,input,select{-webkit-tap-highlight-color:transparent}button{cursor:pointer;color:inherit}button:disabled{cursor:not-allowed;opacity:.5}a{color:inherit;text-decoration:none}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #909090;outline-offset:3px}button{transition:background .18s,transform .18s}button:not(:disabled):active{transform:translateY(1px)}button:hover:not(:disabled){filter:brightness(.98)}[hidden]{display:none!important}p{line-height:1.8}h1,h2,h3,p{margin:0}h2{letter-spacing:-1px}small{font-size:11px;color:var(--muted)}.topbar{height:80px;padding:0 max(4vw,24px);display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);background:var(--paper);gap:24px}.brand{display:flex;align-items:center;gap:10px;white-space:nowrap}.brand b{font-size:22px;letter-spacing:-1px}.brand-mark{display:grid;gap:4px;width:34px;height:38px;background:var(--yellow);border-radius:9px;padding:10px 8px;transform:rotate(-4deg)}.brand-mark i{height:3px;border-radius:1px;background:var(--ink)}.brand-caption{font-size:11px;color:var(--muted);padding-left:14px;border-left:1px solid #c8c8c8;margin-left:6px}.topbar nav{display:flex;gap:30px;font-size:13px}.topbar nav a{position:relative;padding:30px 0}.topbar .current:after{content:"";height:3px;width:20px;position:absolute;bottom:14px;left:calc(50% - 10px);background:var(--red);border-radius:4px}.quiet{border:0;background:transparent;font-size:12px}.hero{max-width:1360px;margin:auto;padding:48px 40px 42px;display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}.eyebrow{font-size:10px;font-weight:650;letter-spacing:1.8px;color:var(--red)}.hero .eyebrow{font-size:12px;letter-spacing:1px}.sun{color:#9b6a12;font-size:18px;vertical-align:middle;margin-right:6px}h1{font-size:52px;line-height:1.23;letter-spacing:-2.5px;font-weight:750;margin:16px 0}h1>span{color:var(--red);position:relative}h1>span:after{content:"";position:absolute;bottom:0;left:0;width:100%;height:10px;background:var(--yellow);z-index:-1;transform:rotate(-1deg)}.hero-copy{font-size:14px;color:#666666;line-height:1.8}.hero-labels{display:flex;gap:16px;margin-top:20px;font-size:10px;color:#696969}.hero-labels span+span:before{content:"·";margin-right:16px}.conversation{border:1px solid #deded2;border-radius:var(--radius);background:#faf9f3;padding:19px 22px;box-shadow:0 12px 30px #33333310;position:relative;transform:rotate(.6deg)}.conversation-top{display:flex;justify-content:space-between;font-size:10px;color:#727272;margin-bottom:16px}.status-dot{display:inline-block;width:6px;height:6px;background:#676767;border-radius:50%;margin-right:6px}.user-bubble{background:#e9eadd;padding:13px 17px;border-radius:13px 13px 3px 13px;margin-left:47px;font-size:13px;line-height:1.8}.ai-reply{display:flex;gap:12px;margin-top:20px;font-size:12px}.mini-mark{display:inline-flex;align-items:center;justify-content:center;flex:0 0 29px;width:29px;height:29px;border-radius:9px;background:var(--yellow);color:#333333;font-weight:800;font-size:17px}.ai-reply b{font-size:14px}.ai-reply p{color:#747474;margin-top:7px;font-size:12px}.reply-tags{display:flex;gap:7px;margin-top:10px}.reply-tags span{font-size:9px;color:#585858;background:#e9e9e9;padding:4px 8px;border-radius:4px}.replay{display:flex;justify-content:space-between;width:100%;padding:13px 0 0;border:0;border-top:1px dashed #d4d4d4;margin-top:18px;background:transparent;font-size:11px;color:var(--red)}.replay span{color:#888888;font-size:10px}.workbench{max-width:1360px;margin:0 auto;background:var(--white);border:1px solid #dadada;border-radius:22px;display:grid;grid-template-columns:250px 1fr;overflow:hidden;box-shadow:0 12px 40px #3333330a}.preferences{background:#eeeeee;padding:29px 22px;border-right:1px solid var(--line)}.sidebar-heading h2{font-size:22px;margin-top:7px}.sidebar-heading .eyebrow{font-size:8px;letter-spacing:1.2px}.schedule{display:flex;gap:10px;align-items:center;background:#e3e3e3;border:1px solid #dadada;border-radius:10px;padding:13px 9px;margin:22px 0 25px}.schedule-icon{width:30px;height:32px;border:1px solid #aeaeae;border-radius:6px;display:grid;place-items:center;font-size:12px;color:#6e6e6e;position:relative}.schedule-icon:before{content:"";position:absolute;top:5px;left:0;width:100%;border-top:1px solid #aeaeae}.schedule b{display:block;font-size:13px}.schedule small{display:block;font-size:9px;margin-top:4px;white-space:nowrap}.control-label{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:11px;font-weight:600;margin-top:22px;margin-bottom:10px}.control-label strong{font-size:20px;font-weight:650}.control-label>span{font-size:9px;font-weight:400;color:#767676}.range-labels{display:flex;justify-content:space-between;color:#929292;font-size:9px;margin-top:4px}input[type=range]{width:100%;margin:0;accent-color:#606060;cursor:pointer;height:15px}.number-field{display:flex;align-items:center;background:#fffefa;border:1px solid #d4d4d4;border-radius:8px;padding:9px 12px}.number-field input{border:0;background:transparent;width:100%;font-size:17px;min-width:0;outline:0}.number-field>span{font-size:11px;color:#7c7c7c}.field-note{font-size:10px;color:#7a7a7a;margin-top:7px;line-height:1.65}.mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}.mode-grid button{padding:10px 4px;font-size:11px;border:1px solid #dadada;border-radius:7px;background:#f7f7f7}.mode-grid button.active{background:var(--red);color:white;border-color:var(--red)}select{border:1px solid #d4d4d4;border-radius:7px;background:#fffefa;padding:10px 7px;width:100%;font-size:11px;color:#585858;cursor:pointer}.divider{border-top:1px dashed #cecece;margin-top:25px}.checkline{font-size:11px;display:flex;align-items:center;gap:6px;margin-top:15px;cursor:pointer}.checkline input{accent-color:var(--red);width:14px;height:14px;margin:0}.primary{border:1px solid var(--red);border-radius:8px;background:var(--red);color:#fffefa;padding:13px 18px;font-size:12px;font-weight:550}.wide{width:100%}.preferences .primary{margin-top:26px}.centered{text-align:center}.sample-location{border-top:1px solid #d7d7d7;padding-top:20px;margin-top:25px;display:flex;gap:10px;align-items:center;color:#6e6e6e}.sample-location>span{font-size:30px;font-weight:300}.sample-location p{font-size:10px}.sample-location small{font-size:9px}.plan-area{padding:29px 30px}.plan-heading{display:flex;align-items:center;justify-content:space-between;gap:15px}.plan-heading .eyebrow{font-size:8px;letter-spacing:1.5px}.plan-heading h2{font-size:24px;margin-top:7px;display:flex;align-items:center;gap:13px}.week-badge{font-size:10px;font-weight:450;letter-spacing:.5px;background:#eeeeee;padding:6px 10px;border-radius:20px;color:#6d6d6d}.outlined{background:transparent;border:1px solid #d0d0d0;border-radius:8px;padding:10px 13px;font-size:11px}.metrics{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;margin-top:24px;background:#f8f8f2;border:1px solid var(--line);border-radius:13px;padding:19px 0}.metric{padding:0 18px;border-right:1px solid var(--line)}.metric:last-child{border:0}.metric-label{font-size:10px;color:#767676;display:block}.metric-value{display:block;font-size:25px;letter-spacing:-.8px;line-height:1.5;font-weight:650;white-space:nowrap}.metric-value small{font-size:11px;font-weight:400;letter-spacing:0;color:#6d6d6d}.metric-foot{font-size:9px;color:#868686}.budget-metric .metric-value{color:var(--red)}.plan-status{font-size:10px;color:#767676;line-height:1.7;min-height:33px;display:flex;align-items:center;gap:6px;margin-top:6px}.plan-status.warning{color:var(--red)}.day-tabs{display:grid;grid-template-columns:repeat(7,1fr);border-bottom:1px solid var(--line);gap:5px;margin-top:6px}.day-tab{border:0;background:transparent;padding:11px 4px 13px;border-radius:10px 10px 0 0;position:relative}.day-tab .weekday{display:block;font-size:10px;color:#7e7e7e}.day-tab .date{display:block;font-size:20px;font-weight:550;line-height:1.7;letter-spacing:-.8px}.day-tab .daily-price{font-size:9px;color:#8c8c8c}.day-tab.active{background:#fff1be}.day-tab.active:after{content:"";position:absolute;bottom:-1px;left:10%;width:80%;height:3px;border-radius:3px;background:var(--yellow)}.day-tab.active .weekday,.day-tab.active .daily-price{color:#806c33}.day-heading{display:flex;align-items:center;justify-content:space-between;margin:23px 0 15px}.day-heading h3{font-size:13px;font-weight:550}.day-heading h3 span{font-size:10px;color:#868686;font-weight:400;margin-left:10px}.view-switch{display:flex;background:#eeeeee;padding:3px;border-radius:7px}.view-switch button{border:0;background:transparent;font-size:10px;padding:4px 11px;color:#7c7c7c;border-radius:5px}.view-switch .active{background:white;color:#545454;box-shadow:0 1px 3px #26262615}.meal-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}.meal-card{border:1px solid var(--line);border-radius:13px;overflow:hidden;background:#fffefa;position:relative}.meal-card.locked{border-color:#afafaf}.meal-card-top{display:flex;align-items:center;justify-content:space-between;padding:13px 13px 0;font-size:10px}.meal-card-top .meal-label{font-weight:600}.meal-card-top time{margin-left:6px;color:#949494;font-size:9px}.lock-button{border:0;background:#eeeeee;color:#777777;padding:4px 6px;border-radius:5px;font-size:9px;white-space:nowrap}.lock-button[aria-pressed=true]{background:#e2e2e2;color:#505050}.food-stage{height:128px;display:grid;place-items:center;position:relative;margin:4px 13px 0;background:radial-gradient(ellipse at 50% 65%,#f3eacb 0,transparent 65%)}.food-stage:after{content:"";position:absolute;bottom:14px;width:115px;height:7px;box-shadow:0 3px 8px #61492222;border-radius:50%}.food-stage img{width:166px;height:128px;object-fit:contain;z-index:1;max-width:100%;filter:drop-shadow(0 8px 4px #57401c10)}.food-fallback{width:80px;height:60px;border-radius:35px 35px 20px 20px;border:8px solid #c18a4e;background:#e9bb57;color:#4e4e4e;display:grid;place-items:center;font-size:22px}.meal-info{padding:4px 14px 13px}.meal-info h4{font-size:14px;letter-spacing:-.3px;margin:0 0 7px;line-height:1.4;font-weight:650}.meal-items{font-size:9px;color:#888888;min-height:28px;line-height:1.6}.nutrition-line{display:flex;gap:7px;margin-top:8px;font-size:9px;color:#7d7d7d}.nutrition-line b{font-weight:500;color:#5a5a5a}.meal-price{display:flex;justify-content:space-between;align-items:center;margin-top:14px}.meal-price strong{font-size:20px;font-weight:650;letter-spacing:-.6px}.meal-price strong small{font-size:9px;margin-right:1px;font-weight:400}.discount-tag{font-size:8px;background:#ededed;color:#707070;border-radius:4px;padding:4px 5px}.meal-route{border-top:1px dashed #e0e0e0;margin-top:12px;padding-top:9px;color:#8a8a8a;font-size:9px;line-height:1.8}.meal-route span{color:#616161}.swap-button{display:block;width:100%;margin-top:10px;padding:8px;background:#f8f8f8;border:1px solid #dedede;border-radius:6px;font-size:10px;color:#676767}.day-summary{display:grid;grid-template-columns:1.4fr 1fr;gap:22px;padding:18px;background:#f2f2f2;border-radius:10px;margin-top:15px}.energy-title{display:flex;justify-content:space-between;font-size:10px;color:#7c7c7c;gap:12px}.energy-title b{color:#565656;font-size:13px}.energy-title b small{font-size:8px}.energy-bar{height:6px;background:#e0e0e0;border-radius:3px;margin:10px 0 6px;overflow:hidden}.energy-bar>span{height:100%;display:block;background:#8c8c8c;border-radius:3px}.energy-note{font-size:9px;color:#8a8a8a}.day-facts{display:flex;justify-content:space-around;align-items:center;border-left:1px solid #dcdcdc;padding-left:15px}.day-facts b{display:block;font-size:17px;font-weight:500;color:#5d5d5d}.day-facts small{display:block;font-size:8px;margin-top:3px}.assistant-bar{display:flex;gap:10px;margin-top:24px;align-items:center}.assistant-bar b{font-size:12px;font-weight:550}.assistant-bar p{font-size:10px;color:#8e8e8e;margin-top:3px}.prompt-chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:13px}.prompt-chips button{font-size:10px;border:1px solid #dcdcdc;border-radius:20px;padding:7px 10px;background:#fffefa;color:#767676}.prompt-form{border:1px solid #dbdbdb;background:#fdfdf9;border-radius:10px;padding:6px;display:flex;margin-top:12px;gap:8px}.prompt-form input{border:0;outline:0;background:transparent;min-width:0;width:100%;padding:4px 9px;font-size:11px}.prompt-form button{border:0;background:#e2e2e2;color:#6c6c6c;font-size:18px;flex:0 0 30px;height:30px;border-radius:7px}.prompt-response{font-size:9px;color:#929292;margin-top:6px;min-height:17px}.plan-footer{display:flex;align-items:center;justify-content:space-between;gap:15px;border-top:1px solid var(--line);padding-top:20px;margin-top:22px}.plan-footer>span{font-size:9px;color:#8e8e8e}.plan-footer .primary{padding:12px 14px;font-size:10px}.evidence-section{max-width:1280px;margin:65px auto 0;padding:15px 25px 55px;display:grid;grid-template-columns:1fr 1fr;gap:90px;border-bottom:1px solid #d8d8d8}.section-intro h2{font-size:32px;line-height:1.5;margin:13px 0 15px}.section-intro>p:not(.eyebrow){font-size:13px;color:#7e7e7e}.snapshot-badge{display:inline-block;font-size:10px;padding:8px 12px;border:1px solid #d0d0d0;border-radius:20px;color:#6e6e6e;margin-top:22px}.section-intro .small-note{font-size:10px!important;color:#8b8b8b!important;max-width:360px;margin-top:17px;line-height:1.8}.quote-panel{background:#fffefa;border:1px solid #dadada;border-radius:16px;padding:20px 23px;align-self:center}.quote-header{display:flex;justify-content:space-between;font-size:11px;padding-bottom:13px;border-bottom:1px solid var(--line)}.quote-header>span:last-child{font-size:9px;color:#8b8b8b}.quote-row{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px solid #eeeee4;font-size:12px}.quote-row small{display:block;font-size:8px;margin-top:4px;color:#979797}.quote-row strong{font-size:21px;letter-spacing:-.5px;font-weight:550}.quote-row.best{color:#585858}.quote-row em{font-size:8px;padding:3px 6px;background:#e7e7e7;border-radius:4px;font-style:normal;margin-left:7px}.quote-insight{display:flex;gap:17px;align-items:center;margin-top:18px;background:#eeeeee;border-radius:9px;padding:12px}.quote-insight>span{font-size:26px;color:#606060}.quote-insight p{font-size:10px;color:#6e6e6e}.quote-insight small{font-size:8px}.technical{margin-top:16px;font-size:10px;color:#737373}.technical summary{cursor:pointer}.technical>div{margin-top:12px}.technical code{display:block;overflow-wrap:anywhere;font-size:9px;color:#767676}.technical p{margin-top:8px;font-size:9px}.technical a{text-decoration:underline;display:inline-block;margin-top:10px}.workflow-section{max-width:1230px;margin:60px auto;padding:0 25px;display:grid;grid-template-columns:1fr 1.2fr;gap:80px}.workflow-section h2{font-size:31px;line-height:1.5;margin:14px 0}.workflow-section>div>p:not(.eyebrow){font-size:12px;color:#7c7c7c}.workflow-section .outlined{margin-top:22px}.workflow{list-style:none;margin:0;padding:0}.workflow li{display:flex;gap:19px;padding:0 0 25px;position:relative}.workflow li:not(:last-child):before{content:"";position:absolute;left:14px;top:30px;bottom:0;border-left:1px dashed #c4c4c4}.workflow li>span{display:flex;align-items:center;justify-content:center;flex:0 0 29px;height:29px;border:1px solid #c4c4c4;border-radius:50%;font-size:9px;color:#757575}.workflow b{font-size:13px;font-weight:600}.workflow p{font-size:11px;color:#8a8a8a;margin-top:4px}.workflow small{display:block;font-size:9px;margin-top:5px;color:#989898}footer{border-top:1px solid #d6d6d6;max-width:1280px;margin:auto;padding:30px 25px 40px}.brand-mark.small{width:27px;height:30px;padding:7px 6px;gap:3px}footer .brand b{font-size:16px}footer .brand>span:last-child{font-size:10px;color:#868686;margin-left:12px}footer>p{font-size:9px;line-height:1.9;color:#909090;margin-top:18px}.footer-links{display:flex;justify-content:space-between;gap:15px;margin-top:16px;font-size:9px;color:#8a8a8a}.text-button{border:0;background:transparent;color:#8a8a8a;font-size:9px;padding:0}.week-grid{border:1px solid var(--line);border-radius:10px;overflow:auto}.week-table{border-collapse:collapse;width:100%;font-size:10px;min-width:500px}.week-table th,.week-table td{text-align:left;padding:12px 10px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.7}.week-table th{background:#efefef;color:#6d6d6d}.week-table td:first-child{min-width:50px}.week-table button{border:0;background:none;padding:0;text-align:left;font-size:10px}.week-table small{font-size:8px;color:#989898}.week-table tr:last-child td{border-bottom:0}dialog{border:1px solid #d0d0d0;border-radius:18px;background:var(--white);color:var(--ink);padding:26px;max-width:570px;width:calc(100% - 32px);max-height:85vh;box-shadow:0 20px 100px #1c1c1c22}dialog::backdrop{background:#25252566;backdrop-filter:blur(5px)}.dialog-top{display:flex;justify-content:space-between;gap:15px;align-items:center}.dialog-top h2{font-size:23px;margin-top:6px}.icon-button{border:1px solid #e0e0e0;background:#f3f3f3;border-radius:50%;width:30px;height:30px;font-size:20px;flex-shrink:0}.dialog-copy{font-size:11px;color:#898989;margin:12px 0 20px}.swap-option{width:100%;display:grid;grid-template-columns:65px 1fr auto;text-align:left;gap:12px;align-items:center;padding:12px;border:1px solid #dedede;background:#f8f8f8;border-radius:10px;margin-top:8px}.swap-option.selected{border-color:#747474;background:#ececec;box-shadow:0 0 0 1px #747474}.swap-option img{width:65px;height:55px;object-fit:contain}.swap-option b{font-size:12px}.swap-option p{font-size:9px;color:#909090;margin-top:4px}.swap-option>strong{font-size:14px;font-weight:500;color:#6e6e6e}.swap-option>strong small{font-size:8px;display:block}.swap-impact{background:#f0f0f0;border-radius:10px;padding:13px;margin-top:15px;font-size:11px;color:#737373;line-height:1.8;min-height:50px}.swap-impact strong{color:#4e4e4e}.dialog-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:18px}#info-content{font-size:12px;line-height:1.9;color:#767676;margin:20px 0}#info-content p+p{margin-top:12px}#info-content b{color:#525252}.trace-steps{padding:0;list-style:none;margin:20px 0}.trace-step{padding:12px 14px;border-left:3px solid #dfdfdf;opacity:.35;margin-bottom:8px;background:#f1f1f1;border-radius:0 8px 8px 0;transition:opacity .3s}.trace-step.done{opacity:1;border-color:#6a6a6a}.trace-step b{font-size:12px}.trace-step code{display:block;font-size:9px;color:#7a7a7a;margin-top:5px}.trace-step p{font-size:10px;color:#898989;margin-top:4px}.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,20px);background:#383838;color:#f5f5e9;border:1px solid #585858;border-radius:10px;box-shadow:0 8px 30px #1b1b1b25;padding:13px 22px;font-size:12px;opacity:0;pointer-events:none;transition:.25s;z-index:30;max-width:calc(100% - 32px);text-align:center}.toast.visible{opacity:1;transform:translate(-50%,0)}
+@media(min-width:1500px){.hero{padding-top:58px;padding-bottom:50px}.food-stage{height:145px}.food-stage img{height:145px;width:180px}.meal-info{padding:8px 17px 15px}}
+@media(max-width:1200px){.workbench{margin:0 25px;grid-template-columns:220px 1fr}.preferences{padding:25px 17px}.plan-area{padding:25px 20px}.hero{padding:35px;gap:40px}h1{font-size:46px}.brand-caption{display:none}.metric{padding:0 12px}.metric-value{font-size:23px}.plan-heading h2{font-size:21px;gap:8px}.week-badge{padding:5px 8px}.meal-grid{gap:9px}.meal-info{padding:4px 10px 10px}.meal-info h4{font-size:13px}.meal-card-top{padding:11px 9px 0}.meal-card-top time{margin-left:3px}.meal-items{font-size:8px}.meal-route{font-size:8px}.evidence-section{gap:50px;margin:50px 30px 0}.workflow-section{gap:50px;margin:45px 30px}.plan-footer{align-items:flex-start;flex-direction:column;gap:12px}}
+@media(max-width:950px){.hero{gap:30px}h1{font-size:40px}.hero-copy{font-size:12px}.hero-labels{font-size:8px;gap:9px}.hero-labels span+span:before{margin-right:9px}.conversation{padding:16px}.user-bubble{margin-left:25px;font-size:11px}.ai-reply p{font-size:10px}.workbench{grid-template-columns:190px 1fr;margin:0 18px}.preferences{padding:22px 13px}.sidebar-heading h2{font-size:20px}.schedule{padding:11px 6px;gap:6px}.schedule small{font-size:8px}.schedule-icon{width:24px}.plan-area{padding:22px 16px}.plan-heading h2{display:block}.week-badge{display:inline-block;margin-left:8px;font-size:8px}.metric{padding:0 9px}.metric-value{font-size:21px}.metric-label{font-size:8px}.metric-foot{font-size:8px}.meal-grid{gap:7px}.meal-card-top{flex-wrap:wrap;gap:6px}.meal-card-top time{font-size:8px}.food-stage{height:105px;margin:4px 5px 0}.food-stage img{height:105px;width:140px}.meal-info h4{font-size:12px;min-height:32px}.nutrition-line{gap:4px;font-size:8px}.meal-price strong{font-size:17px}.discount-tag{font-size:7px;padding:3px}.meal-info{padding:4px 9px 10px}.meal-route{min-height:39px}.day-summary{gap:10px;padding:14px}.day-facts{padding-left:10px}.day-facts b{font-size:15px}.evidence-section{gap:30px}.section-intro h2{font-size:28px}.section-intro>p:not(.eyebrow){font-size:11px}.topbar{height:68px;padding:0 25px}.topbar nav{gap:20px;font-size:11px}.brand b{font-size:20px}}
+@media(max-width:760px){.topbar{height:62px;padding:0 18px;gap:15px}.brand b{font-size:19px}.topbar nav{display:none}.quiet{font-size:10px}.brand-mark{width:29px;height:32px;padding:8px 7px;gap:3px}.hero{padding:28px 22px;grid-template-columns:1fr;gap:25px}.hero h1{font-size:43px;line-height:1.22;margin:12px 0}.hero h1 br{display:none}.hero-copy{font-size:12px}.hero .eyebrow{font-size:10px}.hero-labels{font-size:9px;margin-top:16px}.conversation{transform:none;max-width:550px;display:none}.workbench{display:flex;flex-direction:column;margin:0 12px;border-radius:16px}.preferences{order:2;border-right:0;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr;gap:0 18px;padding:23px 20px}.sidebar-heading,.schedule,.divider,.sample-location,.preferences .primary,.preferences .centered{grid-column:1/-1}.sidebar-heading .eyebrow{font-size:8px}.sidebar-heading h2{font-size:21px}.schedule{margin:15px 0 0}.schedule small{font-size:10px}.schedule-icon{width:30px}.control-label{grid-column:1/-1}.preferences>input[type=range],.range-labels,.number-field,.field-note,.mode-grid,.preferences>select{grid-column:1/-1}.checkline{font-size:10px}.mode-grid{grid-template-columns:repeat(4,1fr)}.preferences .primary{margin-top:20px}.sample-location{margin-top:15px;padding-top:15px}.plan-area{padding:20px 15px}.plan-heading h2{font-size:21px}.week-badge{font-size:8px;margin-left:7px;padding:4px 6px}.plan-heading .outlined{font-size:9px;padding:8px;white-space:nowrap}.metrics{margin-top:18px;padding:14px 0;grid-template-columns:1.2fr 1fr 1fr 1fr;border-radius:9px}.metric{padding:0 9px}.metric-label{font-size:8px}.metric-value{font-size:23px}.metric-value small{font-size:8px}.metric-foot{font-size:7px}.plan-status{font-size:9px;margin-top:8px;line-height:1.7;display:block;padding:4px 0}.day-tabs{gap:2px}.day-tab{padding:9px 2px 11px}.day-tab .weekday{font-size:8px}.day-tab .date{font-size:19px}.day-tab .daily-price{font-size:8px}.day-heading{margin:17px 0 12px}.day-heading h3{font-size:12px}.day-heading h3 span{font-size:9px;margin-left:5px}.meal-grid{grid-template-columns:1fr;gap:10px}.meal-card{display:grid;grid-template-columns:115px 1fr;grid-template-rows:auto 1fr;padding:12px;column-gap:12px;border-radius:11px}.meal-card-top{grid-column:1/-1;padding:0 0 5px;flex-wrap:nowrap}.meal-card-top .meal-label{font-size:11px}.meal-card-top time{font-size:10px;margin-left:8px}.lock-button{font-size:9px;padding:4px 7px}.food-stage{grid-column:1;grid-row:2;margin:0;align-self:center;width:115px;height:120px}.food-stage img{width:130px;height:120px;max-width:initial}.food-stage:after{bottom:20px;width:85px}.meal-info{grid-column:2;grid-row:2;padding:5px 0 0}.meal-info h4{font-size:14px;min-height:0;margin-bottom:5px}.meal-items{font-size:9px;min-height:0}.nutrition-line{font-size:9px;margin-top:5px}.meal-price{margin-top:7px}.meal-price strong{font-size:20px}.discount-tag{font-size:8px}.meal-route{font-size:9px;min-height:0;margin-top:7px;padding-top:7px}.meal-route br{display:none}.meal-route span+span{margin-left:5px}.swap-button{padding:7px;margin-top:7px;font-size:10px}.day-summary{padding:13px;gap:12px;grid-template-columns:1.3fr 1fr}.day-facts b{font-size:14px}.energy-title{font-size:9px}.energy-title b{font-size:12px}.energy-note{font-size:8px}.day-facts small{font-size:7px}.assistant-bar{margin-top:20px}.assistant-bar b{font-size:11px}.assistant-bar p{font-size:9px}.prompt-chips{gap:5px}.prompt-chips button{font-size:9px;padding:6px 8px}.prompt-response{font-size:8px}.plan-footer{margin-top:17px;padding-top:15px;gap:10px}.plan-footer>span{font-size:8px}.plan-footer .primary{width:100%;font-size:11px}.evidence-section{grid-template-columns:1fr;gap:25px;margin:35px 22px 0;padding:0 0 35px}.section-intro h2{font-size:29px;line-height:1.4;margin-top:10px}.section-intro .small-note{max-width:100%;font-size:9px!important;margin-top:12px}.snapshot-badge{margin-top:15px;font-size:9px}.quote-panel{padding:17px 19px}.workflow-section{grid-template-columns:1fr;gap:30px;margin:35px 22px;padding:0}.workflow-section h2{font-size:28px;margin:12px 0}.workflow-section h2 br{display:none}.workflow-section>div>p:not(.eyebrow){font-size:11px}.workflow-section .outlined{margin-top:16px}.workflow b{font-size:12px}.workflow p{font-size:10px}.workflow small{font-size:8px}footer{padding:25px 22px 30px}footer .brand>span:last-child{font-size:8px;margin-left:0}footer>p{font-size:8px}.footer-links{font-size:8px;gap:10px}.footer-links .text-button{font-size:8px}dialog{padding:20px}.dialog-top h2{font-size:21px}.swap-option{grid-template-columns:48px 1fr auto;gap:9px;padding:10px}.swap-option img{width:48px}.swap-option b{font-size:11px}.swap-option p{font-size:8px}.swap-option>strong{font-size:12px}}
+@media(max-width:380px){.hero h1{font-size:36px}.plan-heading h2{font-size:18px}.week-badge{font-size:7px;margin-left:5px}.metric-value{font-size:20px}.metric{padding:0 7px}.meal-card{grid-template-columns:90px 1fr;gap:8px}.food-stage{width:90px}.food-stage img{width:100px}.day-facts{gap:7px}.hero-labels{font-size:8px}.prompt-chips button{font-size:8px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+/* Card economics: weekly cost and cash outlay remain visible together. */
+.card-setting{border:1px solid #d3d3d3;background:#f4f4f4;padding:11px 9px;border-radius:9px;margin-top:10px}.card-setting>b{display:block;font-size:12px;margin-bottom:9px}.card-setting>b small{display:block;font-size:8px;font-weight:400;margin-top:5px}.card-setting>small{display:block;font-size:8px;line-height:1.6;margin-top:8px}.card-inputs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.card-inputs label{font-size:9px;color:#7d7d7d}.card-inputs label:last-child{grid-column:1/-1}.card-inputs input{width:100%;margin-top:5px;background:#fffefa;border:1px solid #d6d6d6;border-radius:5px;padding:7px;font-size:12px;color:#545454}.card-inputs input:disabled{opacity:.45}.card-summary{border:1px solid #dbdbdb;background:#f4f4f4;border-radius:10px;padding:13px 16px;margin:9px 0 18px}.card-summary-title{display:flex;justify-content:space-between;gap:12px;margin-bottom:10px}.card-summary-title>b{font-size:11px}.card-summary-title>span{font-size:9px;color:#8a8a8a}.card-cost-row{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:12px;align-items:center}.card-cost-row>div>b{display:block;font-size:12px}.card-cost-row small{display:block;font-size:9px;margin-top:4px}.card-cost-row>span{font-size:9px;color:#868686}.card-cost-row strong{display:block;font-size:16px;font-weight:550;color:#626262;margin-top:5px}.card-cost-note{font-size:9px;line-height:1.8;color:#898989;margin-top:10px}.card-cost-note+.card-cost-row{border-top:1px dashed #dcdcdc;margin-top:12px;padding-top:12px}.meal-cost-breakdown{font-size:8px;color:#8a8a8a;margin-top:5px}.benefit-comparison{border:1px solid #dcdcdc;border-radius:9px;padding:13px 15px;margin-top:17px;font-size:10px;color:#6d6d6d}.benefit-comparison>summary{cursor:pointer}.benefit-comparison p{font-size:9px;margin-top:10px;color:#8c8c8c}.benefit-comparison table{width:100%;border-collapse:collapse;font-size:10px;margin-top:12px}.benefit-comparison th,.benefit-comparison td{text-align:left;padding:9px 5px;border-bottom:1px solid #e3e3e3}.benefit-comparison th{font-size:9px;color:#9a9a9a}.benefit-comparison tr:last-child td{border-bottom:0}
+@media(max-width:760px){.metrics{grid-template-columns:1fr 1fr;row-gap:12px}.metric{padding:0 14px}.metric:nth-child(2){border-right:0}.metric:nth-child(n+3){border-top:1px solid var(--line);padding-top:12px}.metric-label{font-size:10px}.metric-value{font-size:26px}.metric-value small{font-size:10px}.metric-foot{font-size:9px}.card-setting,.preferences .checkline{grid-column:1/-1}.card-inputs{grid-template-columns:repeat(3,1fr)}.card-inputs label:last-child{grid-column:auto}.card-setting>b small{display:inline;margin-left:8px}.card-summary{padding:12px}.card-summary-title{display:block;margin-bottom:12px}.card-summary-title>span{display:block;font-size:8px;margin-top:4px}.card-cost-row{gap:10px;grid-template-columns:1.1fr .85fr .85fr .85fr}.card-cost-row>div>b{font-size:11px}.card-cost-row small{font-size:8px}.card-cost-row>span{font-size:8px}.card-cost-row strong{font-size:15px}.card-cost-note{font-size:8px}.meal-cost-breakdown{font-size:8px}.prompt-chips button{min-height:32px}.swap-button{min-height:32px}}
+/* Budget → body profile → whole-meal output. */
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}.hero{padding-top:35px;padding-bottom:32px}.workbench{grid-template-columns:280px minmax(0,1fr)}.preferences{padding:27px 22px}.plan-area{min-width:0}.control-label{font-size:12px;justify-content:flex-start;margin-top:24px}.step-dot{display:grid!important;place-items:center;flex:0 0 21px;height:21px;background:#dfdfdf;color:#525252!important;border-radius:50%;font-size:11px!important;font-weight:650!important}.budget-input{display:flex;align-items:center;gap:8px;border:1px solid #b8b8b8;border-radius:10px;background:#fffefa;padding:9px 12px;margin-bottom:9px}.budget-input>span:first-child{font-size:22px;color:var(--red)}.budget-input>span:last-child{font-size:11px;white-space:nowrap;color:#767676}.budget-input input{width:100%;min-width:0;background:transparent;border:0;color:var(--red);font-size:31px;font-weight:650;outline:none}.profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px 10px}.profile-grid label{font-size:11px;color:#616161}.profile-grid label small{float:right;font-size:9px}.profile-grid input,.profile-grid select{width:100%;height:38px;border:1px solid #d3d3d3;background:#fffefa;border-radius:7px;padding:7px 10px;color:#424242;font-size:15px;margin-top:6px;min-width:0}.profile-grid select{font-size:12px}.goal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.goal-grid button{background:#fffefa;border:1px solid #d4d4d4;border-radius:9px;padding:12px 3px}.goal-grid b{font-size:13px;display:block}.goal-grid small{font-size:9px;display:block;margin-top:5px}.goal-grid .active{background:var(--red);border-color:var(--red);color:white}.goal-grid .active small{color:#dedede}.special{font-size:10px;margin-top:20px;color:#797979}.advanced{margin-top:24px;border-top:1px solid #d2d2d2;padding-top:18px;font-size:11px}.advanced>summary{cursor:pointer;font-size:11px;font-weight:550;list-style:none;line-height:1.8}.advanced>summary>span{float:right;color:var(--red)}.advanced[open]>summary>span{transform:rotate(45deg)}.preferences .schedule{margin-top:23px;margin-bottom:0}.target-summary{margin-top:22px;background:#ededed;border:1px solid #dddddd;border-radius:12px;padding:18px 20px}.target-heading{display:flex;gap:12px;align-items:center}.target-icon{display:grid;place-items:center;background:#dbdbdb;color:#555555;border-radius:10px;font-size:25px;width:40px;height:40px}.target-heading b{font-size:15px}.target-heading b>span{font-size:9px;font-weight:400;color:#868686;margin-left:10px}.target-heading p{font-size:10px;color:#7e7e7e;margin-top:5px}.target-values{display:grid;grid-template-columns:1fr 1fr 1fr;margin-top:18px;gap:20px}.target-values>div+div{border-left:1px solid #d2d2d2;padding-left:20px}.target-values small{display:block;font-size:10px;color:#808080}.target-values strong{display:block;font-size:25px;letter-spacing:-.7px;font-weight:600;color:#484848;margin-top:5px}.target-values em{font-size:10px;font-style:normal;font-weight:400;letter-spacing:0}.target-note{font-size:10px;margin-top:12px;color:#7d6c43}.metrics{margin-top:14px}.metric-value{font-size:24px}.plan-status{font-size:11px;line-height:1.9;margin:9px 0}.set-note{font-size:10px;color:#868686;line-height:1.8;margin:8px 0 15px}.meal-card{background:#fffefa}.set-tray{position:relative;height:190px;margin:8px 8px 0;border-radius:10px;background:radial-gradient(ellipse at 50% 80%,#e7d8a9 0,#f7f0dd 45%,#faf8ee 75%);isolation:isolate;overflow:hidden}.set-tray:after{content:"";position:absolute;left:7%;width:86%;height:42%;bottom:0;background:#e8d9b147;border-radius:50%;box-shadow:0 12px 20px #95806412;z-index:-1;transform:perspective(150px) rotateX(30deg)}.tray-label{position:absolute;left:10px;top:9px;font-size:9px;color:#998662;letter-spacing:.5px}.set-tray img{position:absolute;object-fit:contain;filter:drop-shadow(0 8px 5px #594d2c16);max-width:100%}.tray-main{position:absolute!important;width:65%!important;height:130px!important;left:1%;bottom:13px;z-index:3}.tray-drink{position:absolute!important;width:49%!important;height:151px!important;right:0;top:16px;z-index:1}.tray-side{position:absolute!important;width:45%!important;height:92px!important;right:0;bottom:0;z-index:4}.tray-extra{position:absolute!important;width:38%!important;height:76px!important;left:26%;bottom:-3px;z-index:5}.food-icon{display:grid;place-items:center;font-size:40px;line-height:1;filter:drop-shadow(0 6px 4px #543b1820)}.set-tray .food-icon.tray-drink{font-size:82px}.set-tray .food-icon.tray-side{font-size:57px}.meal-info{padding:14px 15px 14px}.set-type{font-size:9px;color:#9e8554;display:block;margin-bottom:7px}.meal-info h4{font-size:16px;line-height:1.5;min-height:0}.set-components{list-style:none;padding:0;margin:12px 0;display:grid;gap:7px;min-height:83px}.set-components li{font-size:10px;color:#5c5c5c;display:flex;gap:7px;align-items:center;line-height:1.7}.set-components li>span{font-size:8px;display:inline-block;padding:1px 4px;background:#eeeeee;border-radius:3px;color:#8b8b8b;white-space:nowrap}.set-components small{font-size:9px;margin-left:auto;color:#939393}.meal-macros{border-top:1px dashed #dedfcf;padding-top:11px;display:flex;flex-wrap:wrap;gap:6px 12px;font-size:10px;color:#848484}.meal-macros>b{font-size:13px;color:#535353;width:100%}.meal-macros>b small{font-size:9px;color:#8b8b8b;font-weight:400}.meal-macros>span:first-of-type{color:#696969}.meal-macros>span:nth-of-type(2){width:100%}.meal-price{margin-top:13px}.meal-price strong{font-size:24px}.meal-price strong small{font-size:10px;color:#8a8a8a}.meal-cost-breakdown{font-size:9px}.meal-route{font-size:9px;line-height:1.8}.swap-button{font-size:11px;padding:10px;margin-top:12px}.day-summary{display:block;padding:20px;margin-top:20px}.nutrition-heading{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:18px}.nutrition-heading b{font-size:12px;color:#585858}.nutrition-heading>span{font-size:9px;color:#8c8c8c}.nutrient-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:15px}.nutrient>span{font-size:10px;color:#8c8c8c}.nutrient>strong{display:block;font-size:22px;font-weight:550;color:#606060;margin-top:5px}.nutrient>strong small{font-size:9px}.nutrient>small,.nutrient p{font-size:9px;color:#8c8c8c}.nutrient p{margin-top:5px}.nutrient.gap p{color:#ae7147}.nutrient.gap .energy-bar>span{background:#c9a15c}.nutrition-gap{font-size:10px;color:#8b896d;line-height:1.9;border-top:1px solid #dddddd;margin-top:15px;padding-top:13px}.methodology,.official-catalog{font-size:11px;margin-top:16px;border:1px solid #dedede;border-radius:9px;padding:14px;color:#7c7c7c}.methodology>summary,.official-catalog>summary{cursor:pointer;line-height:1.8}.methodology p,.official-catalog>p{font-size:11px;line-height:1.9;margin-top:12px}.methodology a{text-decoration:underline;color:#5a5a5a}.official-catalog #official-sets{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}.official-catalog article{padding:10px;background:#f7f7ee;border-radius:8px}.official-catalog img{width:100%;height:100px;object-fit:contain}.official-catalog b{font-size:11px;display:block}.official-catalog small{font-size:8px;display:block;line-height:1.8;margin-top:5px;overflow-wrap:anywhere}.official-catalog article>span{font-size:10px;display:block;margin-top:7px}.ledger-overview{display:flex;gap:10px 24px;flex-wrap:wrap;margin-bottom:15px}.ledger-overview b{font-size:15px}.ledger-overview>span{width:100%;font-size:10px;color:#808080}.card-summary{border:0;padding:10px 0;background:transparent}.empty-state{padding:35px 25px;margin:20px 0;background:#fbf4df;border:1px solid #e6d7ae;border-radius:12px}.empty-state h3{font-size:20px;color:#806733}.empty-state p{font-size:12px;color:#998663;margin-top:12px;max-width:600px}.empty-icon{font-size:40px;color:#ba9e61}.empty-state button{margin-top:20px;margin-right:10px;color:#806733;border-color:#d9c79c}.week-table{min-width:700px}.week-table td{max-width:210px;font-size:10px}.week-table p{font-size:9px;margin:7px 0;color:#7e7e7e}.plan-footer{flex-wrap:wrap}.plan-footer .primary{font-size:12px}.swap-dialog{max-width:650px}.swap-option{grid-template-columns:65px minmax(0,1fr) auto}.swap-option b{font-size:13px}.swap-option p{font-size:10px}.swap-option .food-icon{font-size:40px}.swap-option>strong{white-space:nowrap}.plan-status.warning{color:#9a7241}
+@media(max-width:1200px) and (min-width:761px){.workbench{grid-template-columns:255px minmax(0,1fr)}.preferences{padding:24px 16px}.plan-area{padding:25px 18px}.meal-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.meal-card:last-child{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr}.meal-card:last-child .meal-card-top{grid-column:1/-1}.meal-card:last-child .set-tray{height:200px;align-self:center}.metrics{grid-template-columns:1fr 1fr;gap:14px 0}.metric:nth-child(2){border:0}.target-values{gap:10px}.target-values>div+div{padding-left:10px}.target-values strong{font-size:22px}.nutrient-grid{gap:8px}.nutrient>strong{font-size:18px}.nutrition-heading{display:block}.nutrition-heading>span{display:block;margin-top:5px}}
+@media(max-width:760px){.hero{padding:25px 22px}.hero h1{font-size:38px}.hero h1 br{display:block}.hero-copy{font-size:12px}.preferences{display:block;order:0;border:0;border-bottom:1px solid var(--line);padding:24px 22px}.profile-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}.profile-grid input{font-size:16px;padding:8px}.profile-grid label{font-size:10px}.profile-grid select{font-size:11px;padding:5px}.control-label{margin-top:19px}.budget-input{padding:8px 12px}.goal-grid button{padding:12px}.goal-grid b{font-size:14px}.goal-grid small{font-size:10px}.preferences .schedule{margin-top:20px}.special{margin-top:17px}.plan-area{padding:23px 15px;order:1}.target-summary{padding:16px;margin-top:18px}.target-heading b{font-size:14px}.target-heading b>span{font-size:8px;margin-left:6px}.target-heading p{font-size:9px}.target-values{gap:10px}.target-values>div+div{padding-left:10px}.target-values strong{font-size:24px}.target-values em{font-size:8px;display:block;margin-top:3px}.target-values small{font-size:9px}.metrics{margin-top:12px}.metric-value{font-size:24px}.plan-status{font-size:10px}.meal-grid{grid-template-columns:1fr;gap:18px}.meal-card{display:block;padding:0;border-radius:14px}.meal-card-top{padding:16px 16px 0}.set-tray{height:210px;margin:10px 10px 0}.tray-main{height:165px!important;width:62%!important;left:4%;bottom:6px}.tray-drink{height:185px!important;width:48%!important;top:8px;right:3%}.tray-side{height:110px!important;width:42%!important;bottom:0;right:7%}.tray-extra{height:95px!important;bottom:-5px}.meal-info{padding:16px 20px 18px}.meal-info h4{font-size:20px}.set-type{font-size:10px}.set-components{min-height:0;margin:14px 0;gap:8px}.set-components li{font-size:12px}.set-components li>span{font-size:9px;padding:2px 6px}.set-components small{font-size:11px}.meal-macros{font-size:11px;gap:8px 20px}.meal-macros>b{font-size:16px;width:auto}.meal-macros>b small{font-size:10px}.meal-macros>span:nth-of-type(2){width:auto}.meal-price strong{font-size:28px}.meal-cost-breakdown,.meal-route{font-size:10px}.swap-button{font-size:12px;min-height:40px}.day-summary{padding:18px 14px}.nutrition-heading{display:block}.nutrition-heading b{font-size:12px}.nutrition-heading>span{display:block;margin-top:5px}.nutrient-grid{grid-template-columns:repeat(3,1fr);gap:17px 13px}.nutrient>strong{font-size:23px}.nutrient>small,.nutrient p{font-size:9px}.nutrition-gap{font-size:10px}.official-catalog #official-sets{grid-template-columns:1fr 1fr}.official-catalog img{height:120px}.empty-state{padding:25px 20px}.empty-state h3{font-size:18px}.empty-state button{width:100%;margin-right:0}.swap-option{grid-template-columns:50px minmax(0,1fr);gap:10px}.swap-option>strong{grid-column:2;font-size:16px}.swap-option>strong small{display:inline;margin-left:6px}.swap-option img{width:50px;height:55px}.swap-option p{font-size:10px}.swap-option b{font-size:12px}.plan-heading h2{font-size:20px}.plan-footer .primary{width:100%}.card-cost-row{grid-template-columns:1fr 1fr;row-gap:15px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}}
+/* Deliberate generation, local meal replacement, and reversible edits. */
+.flow-steps{display:flex;align-items:center;gap:13px;color:#828282;font-size:10px;margin:0 0 22px;padding-bottom:17px;border-bottom:1px solid #e2e2e2}.flow-steps>span{display:flex;align-items:center;gap:6px}.flow-steps i{font-style:normal;width:19px;height:19px;border-radius:50%;background:#ececec;display:grid;place-items:center;color:#646464;font-size:9px}.flow-steps>b{font-weight:400;color:#b4b4b4}.plan-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:17px 0 0}.plan-toolbar>div{display:flex;gap:7px}.plan-toolbar .outlined{font-size:10px;padding:8px 10px}.save-state{font-size:10px;color:#828282}.pending-banner{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-top:16px;padding:16px 18px;background:#fff3cb;border:1px solid #ead59c;border-radius:10px}.pending-banner b{font-size:12px;color:#896b2e}.pending-banner p{font-size:10px;color:#a18c5c;margin-top:5px;line-height:1.8}.pending-banner>div:last-child{display:flex;align-items:center;gap:5px;flex-shrink:0}.pending-banner .primary{font-size:10px;padding:10px}.pending-banner .quiet{font-size:10px;padding:8px}.draft-error{color:#a14e36;background:#fff1e5;border:1px solid #e7c6ae;padding:10px 12px;border-radius:7px;font-size:11px;margin-top:16px}.change-feedback{margin-top:15px;margin-bottom:14px;padding:13px 16px;background:#eeeeee;border:1px solid #d1d1d1;border-radius:9px;display:flex;align-items:center;justify-content:space-between;gap:16px}.change-feedback b{font-size:11px;line-height:1.8;font-weight:600;color:#585858}.change-feedback p{font-size:10px;color:#848484;line-height:1.8;margin-top:4px}.change-feedback button{white-space:nowrap;color:#626262;font-size:10px;padding:8px 10px}.meal-actions{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px;margin-top:13px}.random-button,.choose-button{min-height:37px;border-radius:7px;font-size:11px;border:1px solid #cecece;white-space:nowrap}.random-button{background:#e7e7e7;color:#505050;padding:9px 8px}.choose-button{background:transparent;border-color:transparent;color:#7c7c7c;padding:8px 5px}.random-button:hover:not(:disabled){background:#dbdbdb}.swap-hint{font-size:9px;color:#9a9a9a;text-align:center;margin-top:7px}.meal-card.just-changed{border-color:#8c8c8c;box-shadow:0 0 0 2px #adadad33}.swap-tools{display:flex;justify-content:space-between;gap:15px;align-items:center;margin-bottom:12px;font-size:11px;color:#7d7d7d}.swap-tools label{display:flex;align-items:center;gap:8px;white-space:nowrap}.swap-tools select{width:auto;font-size:11px;padding:7px 9px}#swap-options{max-height:42vh;overflow-y:auto;padding:0 3px 3px;overscroll-behavior:contain}.swap-option:disabled{opacity:.5;filter:grayscale(.2)}.swap-option:disabled>strong{color:#a77c53}.swap-option>strong small{white-space:normal}.swap-option{scroll-margin:12px}.swap-impact{font-size:11px}.plan-heading h2>span#plan-title{font-size:inherit;background:none;padding:0;border:0;color:inherit;letter-spacing:inherit;font-weight:inherit}.preferences .primary{margin-top:20px}.plan-toolbar button:disabled{opacity:.4}.plan-footer{align-items:center}.plan-footer>span{line-height:1.8}
+@media(max-width:1100px){.plan-toolbar{align-items:flex-start;flex-direction:column;gap:9px}.pending-banner{display:block}.pending-banner>div:last-child{margin-top:11px}.change-feedback{align-items:flex-start;flex-direction:column;gap:8px}.change-feedback button{align-self:flex-end}}
+@media(max-width:760px){.flow-steps{font-size:10px;gap:11px;margin-bottom:20px}.plan-toolbar{gap:12px}.plan-toolbar>div{width:100%;display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.plan-toolbar .outlined{font-size:11px;min-height:36px}.save-state{font-size:10px}.pending-banner{padding:14px}.pending-banner p{font-size:11px}.pending-banner .primary,.pending-banner .quiet{font-size:11px;min-height:38px}.change-feedback{padding:13px}.change-feedback b{font-size:11px}.change-feedback p{font-size:10px}.change-feedback button{min-height:34px}.meal-actions{gap:12px;grid-template-columns:1fr 90px;margin-top:16px}.random-button,.choose-button{font-size:13px;min-height:44px}.swap-hint{font-size:10px;margin-top:8px}.swap-tools{font-size:10px;gap:7px}.swap-tools select{font-size:10px}.swap-impact{font-size:10px}.swap-dialog{padding:20px}#swap-options{max-height:38vh}.plan-heading h2{display:flex;flex-wrap:wrap;gap:5px}.plan-heading h2 .week-badge{margin:0}.plan-heading{align-items:flex-start}.plan-heading .outlined{margin-top:3px}}
+/* Text-only brand, as requested. */
+.brand{gap:0}.brand b{color:var(--red);font-weight:750;font-size:23px;letter-spacing:1px}.brand-caption{margin-left:18px}.ai-reply{padding-left:0}.ai-reply>div{width:100%}footer .brand b{font-size:19px;letter-spacing:1px}footer .brand>span:last-child{margin-left:18px}.assistant-bar{padding-left:0}
+@media(max-width:760px){.brand b{font-size:21px}.brand-caption{display:none}footer .brand b{font-size:18px}}
+
+/* v1.5: white canvas, black wordmark, restrained red/yellow accents. */
+:root{--paper:#fff;--white:#fff;--ink:#171717;--muted:#686868;--line:#e6e6e6;--yellow:#ffbc0d;--red:#c8102e;--soft:#fff8df;background:#fff;color:#171717}
+html,body,.topbar{background:#fff}.brand b,footer .brand b{color:#111}h1>span{color:#171717}.hero-copy,.hero-labels{color:#555}.conversation{background:#fafafa;transform:none;border-color:#e6e6e6;box-shadow:0 8px 24px #00000006}.user-bubble{background:#fff4c7}.reply-tags span{background:#fff0b3;color:#4d3a00}.status-dot{background:#c8102e}.preferences{background:#fafafa}.primary{background:#ffbc0d;color:#171717;border-color:#ffbc0d}.budget-input{border-color:#e0e0e0}.budget-input input,.budget-input>span:first-child{color:#171717}.goal-grid .active,.mode-grid .active{background:#fff1bb;border-color:#ffbc0d;color:#171717}.target-summary{background:#fafafa;border-color:#e4e4e4}.target-icon{background:#fff0b3;color:#171717}.target-values strong,.target-heading b,.metric-value{color:#171717}.metric.budget-metric .metric-value{color:#c8102e}.target-heading span,.target-heading p,.target-values small{color:#666}.day-tab.active,.day-tabs button.active{background:#ffbc0d;color:#171717}.random-button{background:#ffbc0d;border-color:#ffbc0d;color:#171717}.random-button:hover:not(:disabled){background:#f2b000}.choose-button{color:#c8102e}.change-feedback{background:#fff9e5;border-color:#f5df9b}.change-feedback b{color:#222}.change-feedback p,.swap-hint{color:#666}.change-feedback button{color:#c8102e}.meal-card.just-changed{border-color:#ffbc0d;box-shadow:0 0 0 2px #ffbc0d25}.set-tray{background:#fafafa}.set-type,.meal-macros>b,.meal-macros>span>b{color:#222}.meal-price strong{color:#c8102e}.toast{background:#222;color:white}.value-comparison{border:1px solid #e5e5e5;border-top:3px solid #ffbc0d;border-radius:10px;padding:16px;margin:18px 0;background:#fff}.value-comparison summary{font-size:13px;font-weight:700;cursor:pointer}.value-source{font-size:11px;color:#666;line-height:1.8;margin-top:10px}.value-controls{display:flex;gap:16px;margin:14px 0;flex-wrap:wrap}.value-controls label{display:flex;gap:8px;align-items:center;font-size:11px}.value-controls select{width:auto;padding:7px;font-size:11px}.value-table-wrap{overflow:auto}.value-table-wrap table{width:100%;border-collapse:collapse;font-size:11px;min-width:600px}.value-table-wrap th,.value-table-wrap td{text-align:left;padding:10px 8px;border-bottom:1px solid #eee;white-space:nowrap}.value-table-wrap th{color:#666;background:#fafafa}.value-table-wrap td:first-child{white-space:normal;min-width:180px}.value-table-wrap small{display:block;margin-top:4px;font-size:10px}.protein-value{background:#fff8dd;border-radius:7px;padding:10px;margin-top:12px;font-size:11px;line-height:1.7}.protein-value b,.protein-value span{display:block}.protein-value span{color:#666;font-size:10px}.buy-route{font-size:10px;line-height:1.8;color:#666;margin:10px 0}.buy-route summary{cursor:pointer;color:#c8102e}.buy-route p{margin:5px 0}.buy-route b{white-space:nowrap;color:#222}.meal-info h4{overflow-wrap:anywhere}.buy-route+.meal-route{line-height:1.8}.flow-steps{color:#555}.flow-steps i{background:#fff0b3;color:#171717}.save-state{color:#666}.swap-tools{color:#666}
+
+/* Daily concentric nutrition rings, placed directly below the calendar. */
+.day-summary{background:#fff;border:1px solid #e8e8e8;border-radius:14px;margin:12px 0 22px;padding:18px 24px}.daily-activity{display:flex;align-items:center;justify-content:center;gap:36px}.activity-rings{width:170px;height:170px;flex:0 0 170px}.ring-center-day{font-size:15px;font-weight:700;fill:#222}.ring-center-label{font-size:8px;fill:#777}.ring-legend{flex:1;max-width:490px}.ring-legend h4{font-size:14px;margin:0 0 12px}.ring-stat{display:flex;gap:9px;align-items:center;margin:10px 0}.ring-stat>i{width:7px;height:7px;border-radius:50%;flex:0 0 7px}.ring-stat>div{display:flex;gap:16px;align-items:baseline;flex:1}.ring-stat span{font-size:11px;color:#666;min-width:38px}.ring-stat b{font-size:20px;font-variant-numeric:tabular-nums;white-space:nowrap}.ring-stat small{font-weight:400;font-size:11px;color:#888}.ring-stat em{font-style:normal;font-size:10px;color:#777;text-align:right}.daily-facts{display:flex;justify-content:center;gap:30px;padding-top:13px;margin-top:14px;border-top:1px solid #eee;font-size:11px;color:#666;flex-wrap:wrap}.daily-facts b{color:#222;font-weight:600}.daily-facts .salt-warning,.daily-facts .salt-warning b{color:#b22222}.daily-detail{margin-top:12px;font-size:10px;color:#777;line-height:1.8}.daily-detail summary{cursor:pointer}.daily-detail p{margin-top:7px}.meal-macros>span:nth-last-child(-n+2){display:none}
+@media(max-width:1000px){.daily-activity{gap:18px}.ring-stat>div{display:block}.ring-stat b{display:block}.ring-stat em{max-width:90px}}
+@media(max-width:760px){.day-summary{padding:16px 12px}.daily-activity{gap:12px}.activity-rings{width:128px;height:128px;flex-basis:128px}.ring-legend h4{font-size:12px;margin-bottom:8px}.ring-stat{gap:6px;margin:7px 0}.ring-stat b{font-size:16px}.ring-stat small{font-size:9px}.ring-stat span{font-size:10px}.ring-stat em{display:none}.ring-legend{min-width:0}.daily-facts{gap:12px;font-size:10px}.daily-detail{font-size:10px}}
+@media(prefers-reduced-motion:reduce){.ring-progress{transition:none}}
+
+.location-context{border:1px solid #e5e5e5;background:white;border-radius:8px;padding:12px;margin:16px 0}.location-context>span{display:block;font-size:10px;color:#777;margin-bottom:5px}.location-context>b{font-size:13px}.location-context p{font-size:10px;color:#777;margin-top:6px}.meal-store-prices{border-top:1px solid #eee;margin-top:9px;padding-top:6px}.quote-panel{min-width:0}.quote-panel .value-table-wrap table{min-width:480px}.quote-panel .value-table-wrap td:first-child{min-width:155px}.value-comparison summary{list-style-position:inside}
+
+@media(max-width:760px){.ring-stat{display:grid;grid-template-columns:7px minmax(0,1fr);column-gap:6px;row-gap:1px}.ring-stat>i{grid-row:1}.ring-stat em{display:block;grid-column:2;max-width:none;text-align:left;font-size:9px;line-height:1.5}.ring-stat>div{min-width:0}.ring-stat small{font-size:9px}}
+
+</style>
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="#"><b>一日三麦</b><span class="brand-caption">你的麦当劳周计划 Skill</span></a><nav aria-label="页面导航"><a href="#planner" class="current">周餐单</a><a href="#proof">跨店比价</a><a href="#workflow">工作方式</a></nav><button class="quiet" id="about">演示说明 ↗</button></header>
+  <main>
+    <section class="hero">
+      <div><p class="eyebrow"><span class="sun">☀</span> 周日晚上，给下周留一点从容</p><h1>预算有数，<br><span>三餐有滋有味。</span></h1><p class="hero-copy">先定一周预算，再按身体资料和目标配整套三餐。<br>单点、1+1、套餐和加购一起比，蛋白质和热量都算清。</p><div class="hero-labels"><span>7 天 · 21 餐</span><span>安装在你的 AI 助手里</span><span>本地交互演示</span></div></div>
+      <div class="conversation"><div class="conversation-top"><span><i class="status-dot"></i> 一日三麦 · Skill 对话示例</span><span>周日 20:30</span></div><div class="user-bubble">下周最多花 450 元。我 175cm、75kg，想减脂。<br>帮我配七天套餐，有饮品，别天天吃一样。</div><div class="ai-reply"><div><b>这一周，我来帮你安排。</b><p>结合年龄、活动量估算营养参考。<br>先守住预算，再挑整套搭配；差多少也写清楚。</p><div class="reply-tags"><span>预算是上限</span><span>喜欢的可以锁定</span></div></div></div><button id="replay" class="replay">▷ 看一次 Skill 规划回放 <span>约 4 秒</span></button></div>
+    </section>
+    <section class="workbench" id="planner" aria-label="周餐单交互演示">
+      <aside class="preferences" id="preferences">
+        <div class="sidebar-heading"><span class="eyebrow">BUDGET FIRST, ALWAYS.</span><h2>先定预算，再配餐</h2><p class="field-note">以下为示例资料，可自由修改。</p></div>
+        <label class="control-label" for="budget"><span class="step-dot">1</span>一周最多花多少？</label>
+        <div class="budget-input"><span>¥</span><input id="budget" type="number" min="100" max="1500" step="0.01" value="450" inputmode="decimal"><span>/ 周</span></div>
+        <label class="sr-only" for="budget-basis">预算口径</label><select id="budget-basis"><option value="cash">本周现金 · 含新开卡全额</option><option value="amortized">周折算成本 · 含卡费分摊</option></select><p class="field-note">先守住这个上限。不会用少吃一餐来凑预算。</p>
+        <div class="location-context"><span>比价地点</span><b>天津 · 时代奥城</b><p>已查询 5 家附近门店，3 家完成样本核价。当前示例未设置公司地点。</p></div><div class="control-label"><span class="step-dot">2</span>你的身体资料</div>
+        <div class="profile-grid"><label>身高 <small>cm</small><input id="height" type="number" min="130" max="220" step="1" value="175"></label><label>体重 <small>kg</small><input id="weight" type="number" min="35" max="200" step="0.1" value="75"></label><label>年龄 <small>岁</small><input id="age" type="number" min="18" max="65" step="1" value="30"></label><label>公式性别参数<select id="sex"><option value="male">男性</option><option value="female">女性</option></select></label></div>
+        <label class="control-label" for="activity">平时的活动量</label><select id="activity"><option value="1.2">久坐为主，少运动</option><option value="1.375" selected>轻度活动，每周运动 1–3 次</option><option value="1.55">中度活动，每周运动 3–5 次</option><option value="1.725">较高活动，每周运动 6–7 次</option></select>
+        <label class="checkline"><input id="training" type="checkbox"><span>包含规律力量训练</span></label>
+        <div class="control-label"><span class="step-dot">3</span>这周的饮食目标</div>
+        <div class="goal-grid" role="group" aria-label="饮食目标"><button data-objective="loss" class="active" aria-pressed="true"><b>减脂</b><small>适度缺口</small></button><button data-objective="maintain" aria-pressed="false"><b>维持</b><small>平衡消耗</small></button><button data-objective="gain" aria-pressed="false"><b>增肌</b><small>配合训练</small></button></div>
+        <label class="checkline special"><input id="special" type="checkbox"><span>孕哺期 / 需要特殊营养管理</span></label><p class="field-note">仅供 18–65 岁一般成人估算。需要特殊营养管理时，本页停止自动配餐。</p>
+        <p id="draft-error" class="draft-error" role="alert" hidden></p><button class="primary wide" id="regenerate">按这些条件生成周计划 →</button><p class="field-note centered">填好后统一生成 · 修改时保留当前餐单</p>
+        <details class="advanced"><summary>卡券、通勤和口味偏好 <span>＋</span></summary>
+        <div class="control-label">预算内，更看重什么？</div><div class="mode-grid" role="group" aria-label="规划偏好"><button data-mode="balanced" class="active" aria-pressed="true">都兼顾</button><button data-mode="saving" aria-pressed="false">留点余钱</button><button data-mode="speed" aria-pressed="false">少绕路</button><button data-mode="variety" aria-pressed="false">多换口味</button></div>
+        <label class="control-label" for="detour">距示例地点的单程步行参考上限</label><select id="detour"><option value="5">5 分钟 · 最近门店</option><option value="10">10 分钟以内</option><option value="20" selected>20 分钟 · 比较三店</option><option value="30">30 分钟以内</option></select><p class="field-note">按接口距离 ÷ 80米/分钟粗估，非地图步行或通勤绕路时间。</p>
+        <div class="divider"></div><div class="control-label">卡费预算 <span>权益尚未核验</span></div><div class="card-setting"><b>早餐卡 <small>当前不假定可叠加优惠</small></b><select id="card" aria-label="早餐卡状态"><option value="owned">已有卡 · 本周不再付款</option><option value="none">本周没有早餐卡</option><option value="new">假设本周新开卡</option></select><div class="card-inputs"><label>卡价 ¥<input id="card-price" type="number" min="0" max="300" step="0.1" value="30"></label><label>有效天数<input id="card-days" type="number" min="7" max="366" value="30"></label><label>本周用卡次数<input id="card-uses" type="number" min="0" max="7" value="7"></label></div><small>尚未核验持卡成交价，当前新候选不计卡省钱。</small></div>
+        <div class="card-setting"><b>麦金卡 <small>当前不假定可叠加优惠</small></b><select id="gold" aria-label="麦金卡状态"><option value="none">本周没有麦金卡</option><option value="owned">已有卡 · 本周不再付款</option><option value="new">假设本周新开卡</option></select><div class="card-inputs"><label>卡价 ¥<input id="gold-price" type="number" min="0" max="300" step="0.1" value="19"></label><label>有效天数<input id="gold-days" type="number" min="7" max="366" value="30"></label><label>本周使用上限<input id="gold-uses" type="number" min="0" max="14" value="14"></label></div><small>不把购卡条件价当作普通售价，当前新候选不计卡省钱。</small></div>
+        <label class="checkline"><input id="coupons" type="checkbox" checked><span>旧版示例券 · 不适用于新核价餐单</span></label><p class="field-note">卡价和有效期为用户输入假设。新候选使用未带卡核价，不虚减卡券折扣；卡费仍计入预算，未确认权益不推荐购卡。</p>
+        <label class="checkline"><input id="home-wednesday" type="checkbox" disabled><span>公司地点尚未设置</span></label>
+<div class="sample-location"><span>⌂</span><p>天津时代奥城 → 周边门店<br><small>地点真实查询，时间仅作距离换算</small></p></div>
+        </details>
+        <div class="schedule"><span class="schedule-icon">日</span><div><b>每周日 20:30</b><small>生成下一周 · 宿主任务待配置</small></div></div>
+      </aside>
+      <div class="plan-area"><div class="flow-steps" aria-label="使用步骤"><span><i>1</i> 填条件</span><b>→</b><span><i>2</i> 生成一周</span><b>→</b><span><i>3</i> 随心换餐</span></div>
+        <div class="plan-heading"><div><p class="eyebrow">YOUR WEEK, SORTED.</p><h2><span id="plan-title">下一周，三餐算清楚</span><span class="week-badge">10.19 — 10.25</span></h2></div><button class="outlined" id="export">↓ 导出餐单</button></div>
+        <div class="plan-toolbar"><span id="save-state" class="save-state">示例周计划</span><div><button class="outlined" id="edit-conditions">修改条件</button><button class="outlined" id="undo" disabled>↶ 撤销</button><button class="outlined" id="reroll-week">↻ 整周重排</button></div></div><div class="pending-banner" id="pending-banner" hidden><div><b>条件已修改，餐单还没更新</b><p id="pending-copy"></p></div><div><button class="primary" id="apply-settings">应用并重新生成</button><button class="quiet" id="discard-settings">放弃修改</button></div></div><div id="target-summary" class="target-summary"></div>
+        <div class="metrics" id="metrics"></div>
+        <details class="value-comparison"><summary>单点还是套餐？先看蛋白质性价比</summary><p class="value-source">同一份食物逐店比较：天津时代奥城周边 · 10月18日核价，早餐预约10月19日。每元蛋白质越高越划算；每100千卡蛋白质越高，蛋白质密度越高。它们都不代表一餐营养完整。</p><div class="value-controls"><label>门店 <select id="value-store"><option value="eligible">当前距离范围内最低价</option></select></label><label>范围 <select id="value-type"><option value="all">全部</option><option value="正餐">午晚餐</option><option value="早餐">早餐</option></select></label><label>比较方式 <select id="value-sort"><option value="unit">单点与基础组合</option><option value="value">蛋白质 / 元</option><option value="density">蛋白质 / 100千卡</option><option value="price">价格从低到高</option></select></label></div><div id="value-table" class="value-table-wrap"></div><p class="value-source">只比较已核价且能精确对应营养的候选。营养记录或完整门店报价缺失的套餐不参与排名。复合加购为核价单元相加，整单及未来售价待复核。</p></details><div class="plan-status" id="plan-status" role="status"></div>
+        <div id="empty-state" class="empty-state" hidden></div>
+        <p class="set-note">点“随机换一套”直接尝鲜，也可“自己选”。每次只改这一餐，保留其他餐次。三店核价参与规划；未返回报价的门店组合不参与。下周价格仍需复核。</p>
+        <div id="change-feedback" class="change-feedback" role="status" hidden></div><div class="day-tabs" id="day-tabs" role="tablist" aria-label="选择日期"></div>
+        <div class="day-heading"><h3 id="day-title"></h3><div class="view-switch" role="group" aria-label="餐单视图"><button id="daily-view" class="active" aria-pressed="true">当天</button><button id="week-view" aria-pressed="false">整周</button></div></div>
+        <div id="day-summary" class="day-summary"></div>
+        <div id="meal-cards" class="meal-grid" role="tabpanel"></div>
+        <div id="week-grid" class="week-grid" hidden></div>
+        <details class="methodology"><summary>营养目标怎么算？查看参考、差距与数据来源</summary><div id="method-content"></div></details>
+        <details class="official-catalog"><summary>官方也有套餐：查看接口中已发现的套餐入口</summary><div id="official-sets"></div><p>以上名称、图片、商品编码来自真实门店菜单快照。1+1 和部分早餐、板烧套餐已逐项核验选项并核价，参与上方比较。带卡条件价、未对应营养的套餐仍不参与规划。</p></details>
+        <details class="benefit-comparison"><summary>展开费用明细：早餐卡、麦金卡与每餐分摊</summary><div id="card-summary" class="card-summary"></div><div id="card-comparison"></div><p>同一餐单的持卡假设对比，保留各自卡费；实际组合和开卡决策需读取购买页与核价。本页不会购卡。</p><p>咖啡权益、积分兑换券、其他活动券：实际规则和余额未读取，暂不计省钱额。储值余额是付款来源，不当作折扣。</p></details>
+        <div class="assistant-bar"><div><b>也可以试试对话调整。</b><p>试试下面的指令，看看 Skill 如何调整整周计划。</p></div></div><div class="prompt-chips"><button data-prompt="查看附近门店">查看附近门店</button><button data-prompt="周五午餐吃双吉1+1">周五午餐吃双吉1+1</button><button data-prompt="这周多换几种口味">这周多换几种口味</button></div><form id="prompt-form" class="prompt-form"><input id="prompt" aria-label="预设指令演示" placeholder="输入上面的示例指令…" autocomplete="off"><button aria-label="发送演示指令">↑</button></form><p id="prompt-response" class="prompt-response" aria-live="polite">预设指令演示，不连接语言模型。你也可以直接换餐、锁定或调整左侧条件。</p>
+        <div class="plan-footer"><span>当前为本地试排 · 尚未创建定时任务或订单</span><button class="primary" id="save">保存这份套餐草案 →</button></div>
+      </div>
+    </section>
+    <section class="evidence-section" id="proof"><div class="section-intro"><p class="eyebrow">NEARBY, PRICED ITEM BY ITEM.</p><h2>同一餐，<br>去附近哪家买？</h2><p>示例地点：天津时代奥城。按门店、餐品、规格和取餐时段核价；不假设整家店都更便宜。</p><span class="snapshot-badge">真实只读快照 · 2026.10.18</span><p class="small-note">发现 5 家门店，完成其中最近 3 家样本核价。内部价格组编号未返回。距离为接口参考，非地图路线；不是未来一周价格承诺。</p></div><div class="quote-panel"><div id="store-comparison"></div><details class="technical"><summary>查看比价依据与缺项</summary><p>query-nearby-stores → 各店 query-meals / query-meal-detail → calculate-price。价格单位为分。无报价不会按零元处理，也不会直接套用其他门店价格。</p><p>宾水西道店本次 1+1 选项未返回双吉、麦香鱼、麦香鸡；这只代表该次菜单结果，不能推断永久缺货。未来餐次需复核。公司地点、上下班时间和真实导航路线尚未录入。</p></details></div></section>
+    <section class="workflow-section" id="workflow"><div><p class="eyebrow">A SKILL, IN YOUR ASSISTANT.</p><h2>你说一句，<br>它把这些事连起来。</h2><p>这个页面展示 Skill 的输出和修改过程。<br>真正使用时，由支持相应能力的 AI 助手执行。</p><button class="outlined" id="workflow-replay">▷ 查看完整回放</button></div><ol class="workflow"><li><span>01</span><div><b>周日，先把下周聊明白</b><p>读取预算、饮食目标、通勤安排和需要保留的餐次。</p><small>宿主负责定时触发 · 尚未配置</small></div></li><li><span>02</span><div><b>查真实信息，再算整周取舍</b><p>结合菜单、营养和门店报价；未知的未来优惠保留为估算。</p><small>35 个工具已发现 · 160 条营养记录已读取</small></div></li><li><span>03</span><div><b>先改这一餐，满意再保留</b><p>随机换一套或自己选，立即看差额；改完可撤销，整周重排另行操作。</p><small>本页可交互体验</small></div></li><li><span>04</span><div><b>临近用餐，再核验和执行</b><p>重新核价、检查供应，在用户授权范围内协助建单。</p><small>交易与付款未验证 · 本页不会下单</small></div></li></ol></section>
+    <footer><div class="brand"><b>一日三麦</b><span>把下一周，安排得刚刚好。</span></div><p>独立 Skill 概念演示，非麦当劳官方产品。营养和购买单元价格来自官方接口快照；复合搭配按单元合计，未来价格、卡券和路线仍需核验。<br>餐单热量相加不代表营养全面，实际方案还需考虑钠、食物多样性、过敏原及个人情况。</p><div class="footer-links"><a href="https://github.com/WilderNoTrack/mcd-calorie-butler" target="_blank" rel="noreferrer">演示结构参考：麦麦热量管家 ↗</a><button id="reset" class="text-button">重置本地演示</button></div></footer>
+  </main>
+  <dialog id="swap-dialog" class="swap-dialog"><div class="dialog-top"><div><p class="eyebrow">A LITTLE CHANGE.</p><h2 id="swap-title">这一餐，换个口味</h2></div><button class="icon-button close-dialog" aria-label="关闭换餐">×</button></div><p class="dialog-copy">只替换这一餐，其他 20 餐保持不变。先看费用和营养变化，再应用；喜欢的套餐可另行锁定。</p><div class="swap-tools"><span id="swap-count"></span><label>排序 <select id="swap-sort"><option value="similar">营养接近</option><option value="price">更省钱</option><option value="protein">蛋白质更多</option><option value="value">蛋白质 / 元更高</option><option value="density">蛋白质 / 热量更高</option></select></label></div><div id="swap-options"></div><div id="swap-impact" class="swap-impact" aria-live="polite"></div><div class="dialog-actions"><button class="outlined close-dialog">先不换</button><button class="primary" id="apply-swap" disabled>就换这一份 →</button></div></dialog>
+  <dialog id="info-dialog"><div class="dialog-top"><h2 id="info-title">演示说明</h2><button class="icon-button close-dialog" aria-label="关闭说明">×</button></div><div id="info-content"></div><button class="primary close-dialog wide">知道了</button></dialog>
+  <dialog id="trace-dialog"><div class="dialog-top"><div><p class="eyebrow">SKILL REPLAY</p><h2>从一句话，到一周餐单</h2></div><button class="icon-button close-dialog" aria-label="关闭回放">×</button></div><p class="dialog-copy">已采集数据的演示回放，不会实时调用接口。</p><ol id="trace-steps" class="trace-steps"></ol><button class="primary close-dialog wide">查看周餐单 →</button></dialog>
+  <div id="toast" class="toast" role="status"></div>
+<script>
+/* Sanitized public MCP snapshot. No credentials or account data. */
+window.MAI_DATA = {
+  "nutritionTime": "2026-10-18 19:35:35",
+  "nutritionRowCount": 160,
+  "foods": {
+    "猪柳蛋麦满分": {
+      "name": "猪柳蛋麦满分",
+      "kcal": 387.0,
+      "protein": 23.0,
+      "sodium": 846.0,
+      "image": "https://menu-img.mcd.cn/pcm/prod/menu/20250709/product/MS_5022_320.png",
+      "fat": 21.0,
+      "carbs": 25.0,
+      "calcium": 243.0,
+      "fiber": null,
+      "saturatedFat": null
+    },
+    "火腿扒麦满分": {
+      "name": "火腿扒麦满分",
+      "kcal": 261.0,
+      "protein": 14.0,
+      "sodium": 608.0,
+      "image": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_1254_320.png",
+      "fat": 12.0,
+      "carbs": 24.0,
+      "calcium": 131.0,
+      "fiber": null,
+      "saturatedFat": null
+    },
+    "原味板烧鸡腿麦满分": {
+      "name": "原味板烧鸡腿麦满分",
+      "kcal": 246.0,
+      "protein": 15.0,
+      "sodium": 611.0,
+      "image": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_6800_320.png",
+      "fat": 9.0,
+      "carbs": 25.0,
+      "calcium": 133.0,
+      "fiber": null,
+      "saturatedFat": null
+    },
+    "猪柳麦满分": {
+      "name": "猪柳麦满分",
+      "kcal": 308.0,
+      "protein": 16.0,
+      "sodium": 781.0,
+      "image": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_5024_320.png",
+      "fat": 16.0,
+      "carbs": 24.0,
+      "calcium": 213.0,
+      "fiber": null,
+      "saturatedFat": null
+    },
+    "猪柳炒双蛋堡": {
+      "name": "猪柳炒双蛋堡",
+      "kcal": 437.0,
+      "protein": 25.0,
+      "sodium": 705.0,
+      "image": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_502773_320.png",
+      "fat": 24.0,
+      "carbs": 29.0,
+      "calcium": 116.0,
+      "fiber": null,
+      "saturatedFat": null
+    },
+    "大脆鸡扒麦满分": {
+      "name": "大脆鸡扒麦满分",
+      "kcal": 361.0,
+      "protein": 16.0,
+      "sodium": 804.0,
+      "image": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_5889_320.png",
+      "fat": 17.0,
+      "carbs": 35.0,
+      "calcium": 130.0,
+      "fiber": null,
+      "saturatedFat": null
+    },
+    "脆薯饼": {
+      "name": "脆薯饼",
+      "kcal": 146.0,
+      "protein": 1.0,
+      "sodium": 311.0,
+      "image": "https://menu-img.mcd.cn/pcm/prod/menu/20250506/product/MS_4825_320_1745825068180.png",
+      "fat": 9.0,
+      "carbs": 14.0,
+      "calcium": 7.0,
+      "fiber": null,
+      "saturatedFat": null
+    },
+    "纯牛奶（盒装）": {
+      "name": "纯牛奶（盒装）",
+      "kcal": 129.0,
+      "protein": 7.0,
+      "sodium": 73.0,
+      "image": "https://menu-img.mcd.cn/pcm/prod/menu/20240731/product/MS_3755_320.png",
+      "fat": 7.0,
+      "carbs": 10.0,
+      "calcium": 231.0,
+      "fiber": null,
+      "saturatedFat": null
+    },
+    "热牛奶小杯": {
+      "name": "热牛奶小杯",
+      "kcal": 147.0,
+      "protein": 8.0,
+      "sodium": 84.0,
+      "image": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_G5073941_320.png",
+      "fat": 7.0,
+      "carbs": 13.0,
+      "calcium": 267.0,
+      "fiber": null,
+      "saturatedFat": null,
+      "imageNote": "官方牛奶通用图，份量以文字为准"
+    },
+    "苹果片": {
+      "name": "苹果片",
+      "kcal": 32.0,
+      "protein": 0.0,
+      "sodium": 0.0,
+      "image": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_6102_320.png",
+      "fat": 0.0,
+      "carbs": 7.0,
+      "calcium": 18.0,
+      "fiber": null,
+      "saturatedFat": null
+    },
+    "板烧鸡腿堡": {
+      "name": "板烧鸡腿堡",
+      "kcal": 391.0,
+      "protein": 23.0,
+      "sodium": 1041.0,
+      "image": "https://menu-img.mcd.cn/pcm/prod/menu/20241008/product/MS_1406_320.png",
+      "fat": 17.0,
+      "carbs": 35.0,
+      "calcium": 93.0,
+      "fiber": null,
+      "saturatedFat": null
+    },
+    "麦乐鸡5块": {
+      "name": "麦乐鸡5块",
+      "kcal": 213.0,
+      "protein": 12.0,
+      "sodium": 422.0,
+      "image": "https://menu-img.mcd.cn/pcm/prod/menu/20260529/product/MS_G1401_320.png",
+      "fat": 12.0,
+      "carbs": 13.0,
+      "calcium": 9.0,
+      "fiber": null,
+      "saturatedFat": null
+    },
+    "小杯玉米杯": {
+      "name": "小杯玉米杯",
+      "kcal": 53.0,
+      "protein": 2.0,
+      "sodium": 1.0,
+      "image": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_G4437_320.png",
+      "fat": 1.0,
+      "carbs": 7.0,
+      "calcium": 6.0,
+      "fiber": null,
+      "saturatedFat": null,
+      "imageNote": "图片示意，份量以文字为准"
+    },
+    "巨无霸": {
+      "name": "巨无霸",
+      "kcal": 513.0,
+      "protein": 27.0,
+      "sodium": 961.0,
+      "image": "https://menu-img.mcd.cn/pcm/prod/menu/20260309/product/MS_1100_320.png",
+      "fat": 26.0,
+      "carbs": 42.0,
+      "calcium": 171.0,
+      "fiber": null,
+      "saturatedFat": null
+    },
+    "大杯玉米杯": {
+      "name": "大杯玉米杯",
+      "kcal": 87.0,
+      "protein": 4.0,
+      "sodium": 2.0,
+      "image": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_G4437_320.png",
+      "fat": 1.0,
+      "carbs": 12.0,
+      "calcium": 10.0,
+      "fiber": null,
+      "saturatedFat": null,
+      "imageNote": "图片示意，份量以文字为准"
+    },
+    "麦香鱼": {
+      "name": "麦香鱼",
+      "kcal": 325.0,
+      "protein": 16.0,
+      "sodium": 556.0,
+      "image": "https://menu-img.mcd.cn/pcm/prod/menu/20260101/product/MS_1600_320.png",
+      "fat": 13.0,
+      "carbs": 35.0,
+      "calcium": 99.0,
+      "fiber": null,
+      "saturatedFat": null
+    },
+    "双层吉士汉堡": {
+      "name": "双层吉士汉堡",
+      "kcal": 429.0,
+      "protein": 27.0,
+      "sodium": 1017.0,
+      "image": "https://menu-img.mcd.cn/pcm/prod/menu/20260309/product/MS_1120_320.png",
+      "fat": 22.0,
+      "carbs": 31.0,
+      "calcium": 232.0,
+      "fiber": null,
+      "saturatedFat": null
+    },
+    "小薯条": {
+      "name": "小薯条",
+      "kcal": 210.0,
+      "protein": 3.0,
+      "sodium": 120.0,
+      "image": "https://menu-img.mcd.cn/pcm/prod/menu/20250523/product/MS_G4810_320_1747877491921.png",
+      "fat": 9.0,
+      "carbs": 28.0,
+      "calcium": 13.0,
+      "fiber": null,
+      "saturatedFat": null,
+      "imageNote": "图片示意，份量以文字为准"
+    },
+    "无糖可口可乐中杯": {
+      "name": "无糖可口可乐中杯",
+      "kcal": 0.0,
+      "protein": 0.0,
+      "sodium": 35.0,
+      "image": "",
+      "fat": 0.0,
+      "carbs": 1.0,
+      "calcium": 0.0,
+      "fiber": null,
+      "saturatedFat": null
+    },
+    "麦香鸡": {
+      "name": "麦香鸡",
+      "kcal": 369.0,
+      "protein": 15.0,
+      "sodium": 731.0,
+      "image": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_1450_320.png",
+      "fat": 17.0,
+      "carbs": 39.0,
+      "calcium": 73.0,
+      "fiber": null,
+      "saturatedFat": null
+    },
+    "麦辣鸡腿汉堡": {
+      "name": "麦辣鸡腿汉堡",
+      "kcal": 485.0,
+      "protein": 24.0,
+      "sodium": 1208.0,
+      "image": "https://menu-img.mcd.cn/pcm/prod/menu/20260325/product/MS_1440_320.png",
+      "fat": 24.0,
+      "carbs": 42.0,
+      "calcium": 154.0,
+      "fiber": null,
+      "saturatedFat": null
+    },
+    "培根蔬萃双层牛堡": {
+      "name": "培根蔬萃双层牛堡",
+      "kcal": 442.0,
+      "protein": 24.0,
+      "sodium": 728.0,
+      "image": "https://menu-img.mcd.cn/pcm/prod/menu/20260309/product/MS_1106_320.png",
+      "fat": 23.0,
+      "carbs": 34.0,
+      "calcium": 73.0,
+      "fiber": null,
+      "saturatedFat": null
+    },
+    "双层深海鳕鱼堡": {
+      "name": "双层深海鳕鱼堡",
+      "kcal": 485.0,
+      "protein": 28.0,
+      "sodium": 917.0,
+      "image": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_9900003586_320.png",
+      "fat": 21.0,
+      "carbs": 46.0,
+      "calcium": 147.0,
+      "fiber": null,
+      "saturatedFat": null
+    },
+    "中薯条": {
+      "name": "中薯条",
+      "image": "https://menu-img.mcd.cn/pcm/prod/menu/20250523/product/MS_G4810_320_1747877491921.png",
+      "kcal": 289.0,
+      "protein": 4.0,
+      "fat": 12.0,
+      "carbs": 38.0,
+      "sodium": 165.0,
+      "calcium": 18.0,
+      "fiber": null,
+      "saturatedFat": null,
+      "imageNote": "图片示意，份量以文字为准"
+    },
+    "烟肉蛋麦满分": {
+      "name": "烟肉蛋麦满分",
+      "image": "",
+      "kcal": 260.0,
+      "protein": 16.0,
+      "fat": 10.0,
+      "carbs": 24.0,
+      "sodium": 483.0,
+      "calcium": 238.0,
+      "fiber": null,
+      "saturatedFat": null
+    },
+    "皮蛋鸡肉粥": {
+      "name": "皮蛋鸡肉粥",
+      "image": "",
+      "fiber": null,
+      "saturatedFat": null,
+      "kcal": 133.0,
+      "protein": 6.0,
+      "fat": 3.0,
+      "carbs": 20.0,
+      "sodium": 611.0,
+      "calcium": 20.0
+    },
+    "雪菜脆笋鸡肉粥": {
+      "name": "雪菜脆笋鸡肉粥",
+      "image": "",
+      "fiber": null,
+      "saturatedFat": null,
+      "kcal": 120.0,
+      "protein": 4.0,
+      "fat": 2.0,
+      "carbs": 22.0,
+      "sodium": 552.0,
+      "calcium": 14.0
+    },
+    "优品豆浆小杯": {
+      "name": "优品豆浆小杯",
+      "image": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_1088_320.png",
+      "fiber": null,
+      "saturatedFat": null,
+      "kcal": 151.0,
+      "protein": 6.0,
+      "fat": 3.0,
+      "carbs": 25.0,
+      "sodium": 32.0,
+      "calcium": 15.0
+    },
+    "热美式小杯": {
+      "name": "热美式小杯",
+      "image": "https://menu-img.mcd.cn/pcm/prod/menu/20250521/product/MS_507368_320.png",
+      "fiber": null,
+      "saturatedFat": null,
+      "kcal": 10.0,
+      "protein": 1.0,
+      "fat": 0.0,
+      "carbs": 1.0,
+      "sodium": 0.0,
+      "calcium": 6.0
+    },
+    "原味板烧鸡腿炒双蛋堡": {
+      "name": "原味板烧鸡腿炒双蛋堡",
+      "image": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_514700_320.png",
+      "fiber": null,
+      "saturatedFat": null,
+      "kcal": 419.0,
+      "protein": 27.0,
+      "fat": 21.0,
+      "carbs": 30.0,
+      "sodium": 715.0,
+      "calcium": 116.0
+    },
+    "双层原味板烧鸡腿麦满分": {
+      "name": "双层原味板烧鸡腿麦满分",
+      "image": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_4989_320.png",
+      "fiber": null,
+      "saturatedFat": null,
+      "kcal": 355.0,
+      "protein": 23.0,
+      "fat": 17.0,
+      "carbs": 27.0,
+      "sodium": 984.0,
+      "calcium": 138.0
+    },
+    "热美式中杯": {
+      "name": "热美式中杯",
+      "image": "https://menu-img.mcd.cn/pcm/prod/menu/20250521/product/MS_507368_320.png",
+      "fiber": null,
+      "saturatedFat": null,
+      "kcal": 13.0,
+      "protein": 1.0,
+      "fat": 0.0,
+      "carbs": 2.0,
+      "sodium": 0.0,
+      "calcium": 7.0
+    }
+  },
+  "quotes": [
+    {
+      "storeCode": "1450713",
+      "storeName": "华旭国际大厦店",
+      "productName": "麦香鸡",
+      "productCode": "1450",
+      "priceFen": 1700,
+      "discountFen": 0,
+      "time": "2026-10-18 19:39:39"
+    },
+    {
+      "storeCode": "1450441",
+      "storeName": "福州路店",
+      "productName": "麦香鸡",
+      "productCode": "1450",
+      "priceFen": 1700,
+      "discountFen": 0,
+      "time": "2026-10-18 19:39:39"
+    },
+    {
+      "storeCode": "1450056",
+      "storeName": "食品一店",
+      "productName": "麦香鸡",
+      "productCode": "1450",
+      "priceFen": 1650,
+      "discountFen": 0,
+      "time": "2026-10-18 19:39:39"
+    }
+  ],
+  "queryContext": "上海人民广场；到店自取；1份麦香鸡；即时核价；未指定券或加购卡",
+  "officialSets": [
+    {
+      "code": "9900003458",
+      "name": "猪柳蛋麦满分套餐",
+      "image": "https://menu-img.mcd.cn/pcm/prod/menu/20260422/product/MS_9900003458_320.png",
+      "menuPrice": "15.6",
+      "condition": "随单购早餐卡优惠",
+      "componentsVerified": false
+    },
+    {
+      "code": "9900005453",
+      "name": "麦香鸡套餐",
+      "image": "https://menu-img.mcd.cn/pcm/prod/menu/20260824/product/MS_G504967_320.png",
+      "menuPrice": "28",
+      "condition": "门店菜单展示价",
+      "componentsVerified": false
+    },
+    {
+      "code": "9900005462",
+      "name": "板烧鸡腿堡三件套",
+      "image": "https://menu-img.mcd.cn/pcm/prod/menu/20260824/product/MS_9900005462_320.png",
+      "menuPrice": "34.5",
+      "condition": "门店菜单展示价",
+      "componentsVerified": false
+    },
+    {
+      "code": "9900005466",
+      "name": "巨无霸三件套",
+      "image": "https://menu-img.mcd.cn/pcm/prod/menu/20260824/product/MS_9900005466_320.png",
+      "menuPrice": "36.5",
+      "condition": "门店菜单展示价",
+      "componentsVerified": false
+    }
+  ],
+  "offers": [
+    {
+      "id": "s-正餐-1120",
+      "type": "正餐",
+      "kind": "单点",
+      "title": "双层吉士汉堡",
+      "items": [
+        "双层吉士汉堡"
+      ],
+      "price": 2300,
+      "productCode": "1120",
+      "time": "2026-10-18 21:09:06",
+      "evidence": "v5-singles-lunch",
+      "source": "单品核价快照",
+      "storeQuotes": {
+        "1980342": {
+          "price": 2250,
+          "time": "2026-10-18 21:18:57",
+          "evidence": "tj-1980342-singles-m"
+        },
+        "1980183": {
+          "price": 2300,
+          "time": "2026-10-18 21:19:41",
+          "evidence": "tj-1980183-singles-m"
+        }
+      }
+    },
+    {
+      "id": "s-正餐-1600",
+      "type": "正餐",
+      "kind": "单点",
+      "title": "麦香鱼",
+      "items": [
+        "麦香鱼"
+      ],
+      "price": 2200,
+      "productCode": "1600",
+      "time": "2026-10-18 21:09:06",
+      "evidence": "v5-singles-lunch",
+      "source": "单品核价快照",
+      "storeQuotes": {
+        "1980342": {
+          "price": 2200,
+          "time": "2026-10-18 21:18:57",
+          "evidence": "tj-1980342-singles-m"
+        },
+        "1980183": {
+          "price": 2300,
+          "time": "2026-10-18 21:19:41",
+          "evidence": "tj-1980183-singles-m"
+        }
+      }
+    },
+    {
+      "id": "s-正餐-1450",
+      "type": "正餐",
+      "kind": "单点",
+      "title": "麦香鸡",
+      "items": [
+        "麦香鸡"
+      ],
+      "price": 1650,
+      "productCode": "1450",
+      "time": "2026-10-18 21:09:06",
+      "evidence": "v5-singles-lunch",
+      "source": "单品核价快照",
+      "storeQuotes": {
+        "1980342": {
+          "price": 1650,
+          "time": "2026-10-18 21:18:57",
+          "evidence": "tj-1980342-singles-m"
+        },
+        "1980183": {
+          "price": 1650,
+          "time": "2026-10-18 21:19:41",
+          "evidence": "tj-1980183-singles-m"
+        }
+      }
+    },
+    {
+      "id": "s-正餐-1401",
+      "type": "正餐",
+      "kind": "单点",
+      "title": "麦乐鸡5块",
+      "items": [
+        "麦乐鸡5块"
+      ],
+      "price": 1400,
+      "productCode": "1401",
+      "time": "2026-10-18 21:09:06",
+      "evidence": "v5-singles-lunch",
+      "source": "单品核价快照",
+      "storeQuotes": {
+        "1980076": {
+          "price": 1500,
+          "time": "2026-10-18 21:18:54",
+          "evidence": "tj-1980076-singles-m"
+        },
+        "1980342": {
+          "price": 1450,
+          "time": "2026-10-18 21:18:57",
+          "evidence": "tj-1980342-singles-m"
+        },
+        "1980183": {
+          "price": 1450,
+          "time": "2026-10-18 21:19:41",
+          "evidence": "tj-1980183-singles-m"
+        }
+      }
+    },
+    {
+      "id": "s-正餐-3755",
+      "type": "正餐",
+      "kind": "单点",
+      "title": "纯牛奶（盒装）",
+      "items": [
+        "纯牛奶（盒装）"
+      ],
+      "price": 1100,
+      "productCode": "3755",
+      "time": "2026-10-18 21:09:06",
+      "evidence": "v5-singles-lunch",
+      "source": "单品核价快照",
+      "storeQuotes": {
+        "1980076": {
+          "price": 1100,
+          "time": "2026-10-18 21:18:54",
+          "evidence": "tj-1980076-singles-m"
+        },
+        "1980342": {
+          "price": 1100,
+          "time": "2026-10-18 21:18:57",
+          "evidence": "tj-1980342-singles-m"
+        },
+        "1980183": {
+          "price": 1100,
+          "time": "2026-10-18 21:19:41",
+          "evidence": "tj-1980183-singles-m"
+        }
+      }
+    },
+    {
+      "id": "s-正餐-4437",
+      "type": "正餐",
+      "kind": "单点",
+      "title": "小杯玉米杯",
+      "items": [
+        "小杯玉米杯"
+      ],
+      "price": 1300,
+      "productCode": "4437",
+      "time": "2026-10-18 21:09:06",
+      "evidence": "v5-singles-lunch",
+      "source": "单品核价快照",
+      "storeQuotes": {
+        "1980076": {
+          "price": 1300,
+          "time": "2026-10-18 21:18:54",
+          "evidence": "tj-1980076-singles-m"
+        },
+        "1980342": {
+          "price": 1300,
+          "time": "2026-10-18 21:18:57",
+          "evidence": "tj-1980342-singles-m"
+        },
+        "1980183": {
+          "price": 1300,
+          "time": "2026-10-18 21:19:41",
+          "evidence": "tj-1980183-singles-m"
+        }
+      }
+    },
+    {
+      "id": "s-正餐-4810",
+      "type": "正餐",
+      "kind": "单点",
+      "title": "中薯条",
+      "items": [
+        "中薯条"
+      ],
+      "price": 1450,
+      "productCode": "4810",
+      "time": "2026-10-18 21:09:06",
+      "evidence": "v5-singles-lunch",
+      "source": "单品核价快照",
+      "storeQuotes": {
+        "1980076": {
+          "price": 1450,
+          "time": "2026-10-18 21:18:54",
+          "evidence": "tj-1980076-singles-m"
+        },
+        "1980342": {
+          "price": 1450,
+          "time": "2026-10-18 21:18:57",
+          "evidence": "tj-1980342-singles-m"
+        },
+        "1980183": {
+          "price": 1450,
+          "time": "2026-10-18 21:19:41",
+          "evidence": "tj-1980183-singles-m"
+        }
+      }
+    },
+    {
+      "id": "s-正餐-1406",
+      "type": "正餐",
+      "kind": "单点",
+      "title": "板烧鸡腿堡",
+      "items": [
+        "板烧鸡腿堡"
+      ],
+      "price": 2350,
+      "productCode": "1406",
+      "time": "2026-10-18 21:09:06",
+      "evidence": "v5-singles-lunch",
+      "source": "单品核价快照",
+      "storeQuotes": {
+        "1980076": {
+          "price": 2350,
+          "time": "2026-10-18 21:18:54",
+          "evidence": "tj-1980076-singles-m"
+        },
+        "1980342": {
+          "price": 2400,
+          "time": "2026-10-18 21:18:57",
+          "evidence": "tj-1980342-singles-m"
+        },
+        "1980183": {
+          "price": 2350,
+          "time": "2026-10-18 21:19:41",
+          "evidence": "tj-1980183-singles-m"
+        }
+      }
+    },
+    {
+      "id": "s-正餐-1440",
+      "type": "正餐",
+      "kind": "单点",
+      "title": "麦辣鸡腿汉堡",
+      "items": [
+        "麦辣鸡腿汉堡"
+      ],
+      "price": 2250,
+      "productCode": "1440",
+      "time": "2026-10-18 21:09:06",
+      "evidence": "v5-singles-lunch",
+      "source": "单品核价快照",
+      "storeQuotes": {
+        "1980076": {
+          "price": 2250,
+          "time": "2026-10-18 21:18:54",
+          "evidence": "tj-1980076-singles-m"
+        },
+        "1980342": {
+          "price": 2300,
+          "time": "2026-10-18 21:18:57",
+          "evidence": "tj-1980342-singles-m"
+        },
+        "1980183": {
+          "price": 2250,
+          "time": "2026-10-18 21:19:41",
+          "evidence": "tj-1980183-singles-m"
+        }
+      }
+    },
+    {
+      "id": "s-正餐-1106",
+      "type": "正餐",
+      "kind": "单点",
+      "title": "培根蔬萃双层牛堡",
+      "items": [
+        "培根蔬萃双层牛堡"
+      ],
+      "price": 2500,
+      "productCode": "1106",
+      "time": "2026-10-18 21:09:06",
+      "evidence": "v5-singles-lunch",
+      "source": "单品核价快照",
+      "storeQuotes": {
+        "1980342": {
+          "price": 2450,
+          "time": "2026-10-18 21:18:57",
+          "evidence": "tj-1980342-singles-m"
+        },
+        "1980183": {
+          "price": 2450,
+          "time": "2026-10-18 21:19:41",
+          "evidence": "tj-1980183-singles-m"
+        }
+      }
+    },
+    {
+      "id": "s-正餐-4800",
+      "type": "正餐",
+      "kind": "单点",
+      "title": "小薯条",
+      "items": [
+        "小薯条"
+      ],
+      "price": 1100,
+      "productCode": "4800",
+      "time": "2026-10-18 21:09:06",
+      "evidence": "v5-singles-lunch",
+      "source": "单品核价快照",
+      "storeQuotes": {}
+    },
+    {
+      "id": "s-正餐-4438",
+      "type": "正餐",
+      "kind": "单点",
+      "title": "大杯玉米杯",
+      "items": [
+        "大杯玉米杯"
+      ],
+      "price": 1600,
+      "productCode": "4438",
+      "time": "2026-10-18 21:09:06",
+      "evidence": "v5-singles-lunch",
+      "source": "单品核价快照",
+      "storeQuotes": {}
+    },
+    {
+      "id": "s-早餐-5022",
+      "type": "早餐",
+      "kind": "单点",
+      "title": "猪柳蛋麦满分",
+      "items": [
+        "猪柳蛋麦满分"
+      ],
+      "price": 1800,
+      "productCode": "5022",
+      "time": "2026-10-18 21:09:06",
+      "evidence": "v5-singles-breakfast",
+      "source": "单品核价快照",
+      "storeQuotes": {
+        "1980076": {
+          "price": 1700,
+          "time": "2026-10-18 21:18:56",
+          "evidence": "tj-1980076-singles-b"
+        },
+        "1980342": {
+          "price": 1800,
+          "time": "2026-10-18 21:19:40",
+          "evidence": "tj-1980342-singles-b"
+        },
+        "1980183": {
+          "price": 1750,
+          "time": "2026-10-18 21:19:45",
+          "evidence": "tj-1980183-singles-b"
+        }
+      }
+    },
+    {
+      "id": "s-早餐-5024",
+      "type": "早餐",
+      "kind": "单点",
+      "title": "猪柳麦满分",
+      "items": [
+        "猪柳麦满分"
+      ],
+      "price": 1400,
+      "productCode": "5024",
+      "time": "2026-10-18 21:09:06",
+      "evidence": "v5-singles-breakfast",
+      "source": "单品核价快照",
+      "storeQuotes": {
+        "1980076": {
+          "price": 1400,
+          "time": "2026-10-18 21:18:56",
+          "evidence": "tj-1980076-singles-b"
+        },
+        "1980342": {
+          "price": 1400,
+          "time": "2026-10-18 21:19:40",
+          "evidence": "tj-1980342-singles-b"
+        },
+        "1980183": {
+          "price": 1400,
+          "time": "2026-10-18 21:19:45",
+          "evidence": "tj-1980183-singles-b"
+        }
+      }
+    },
+    {
+      "id": "s-早餐-1254",
+      "type": "早餐",
+      "kind": "单点",
+      "title": "火腿扒麦满分",
+      "items": [
+        "火腿扒麦满分"
+      ],
+      "price": 1100,
+      "productCode": "1254",
+      "time": "2026-10-18 21:09:06",
+      "evidence": "v5-singles-breakfast",
+      "source": "单品核价快照",
+      "storeQuotes": {
+        "1980076": {
+          "price": 1100,
+          "time": "2026-10-18 21:18:56",
+          "evidence": "tj-1980076-singles-b"
+        },
+        "1980342": {
+          "price": 1100,
+          "time": "2026-10-18 21:19:40",
+          "evidence": "tj-1980342-singles-b"
+        },
+        "1980183": {
+          "price": 1100,
+          "time": "2026-10-18 21:19:45",
+          "evidence": "tj-1980183-singles-b"
+        }
+      }
+    },
+    {
+      "id": "s-早餐-3755",
+      "type": "早餐",
+      "kind": "单点",
+      "title": "纯牛奶（盒装）",
+      "items": [
+        "纯牛奶（盒装）"
+      ],
+      "price": 1100,
+      "productCode": "3755",
+      "time": "2026-10-18 21:09:06",
+      "evidence": "v5-singles-breakfast",
+      "source": "单品核价快照",
+      "storeQuotes": {
+        "1980076": {
+          "price": 1100,
+          "time": "2026-10-18 21:18:56",
+          "evidence": "tj-1980076-singles-b"
+        },
+        "1980342": {
+          "price": 1100,
+          "time": "2026-10-18 21:19:40",
+          "evidence": "tj-1980342-singles-b"
+        },
+        "1980183": {
+          "price": 1100,
+          "time": "2026-10-18 21:19:45",
+          "evidence": "tj-1980183-singles-b"
+        }
+      }
+    },
+    {
+      "id": "s-早餐-1088",
+      "type": "早餐",
+      "kind": "单点",
+      "title": "优品豆浆小杯",
+      "items": [
+        "优品豆浆小杯"
+      ],
+      "price": 950,
+      "productCode": "1088",
+      "time": "2026-10-18 21:09:06",
+      "evidence": "v5-singles-breakfast",
+      "source": "单品核价快照",
+      "storeQuotes": {
+        "1980076": {
+          "price": 950,
+          "time": "2026-10-18 21:18:56",
+          "evidence": "tj-1980076-singles-b"
+        },
+        "1980342": {
+          "price": 950,
+          "time": "2026-10-18 21:19:40",
+          "evidence": "tj-1980342-singles-b"
+        },
+        "1980183": {
+          "price": 950,
+          "time": "2026-10-18 21:19:45",
+          "evidence": "tj-1980183-singles-b"
+        }
+      }
+    },
+    {
+      "id": "s-早餐-6800",
+      "type": "早餐",
+      "kind": "单点",
+      "title": "原味板烧鸡腿麦满分",
+      "items": [
+        "原味板烧鸡腿麦满分"
+      ],
+      "price": 1500,
+      "productCode": "6800",
+      "time": "2026-10-18 21:09:06",
+      "evidence": "v5-singles-breakfast",
+      "source": "单品核价快照",
+      "storeQuotes": {
+        "1980076": {
+          "price": 1450,
+          "time": "2026-10-18 21:18:56",
+          "evidence": "tj-1980076-singles-b"
+        },
+        "1980342": {
+          "price": 1500,
+          "time": "2026-10-18 21:19:40",
+          "evidence": "tj-1980342-singles-b"
+        },
+        "1980183": {
+          "price": 1500,
+          "time": "2026-10-18 21:19:45",
+          "evidence": "tj-1980183-singles-b"
+        }
+      }
+    },
+    {
+      "id": "s-早餐-4989",
+      "type": "早餐",
+      "kind": "单点",
+      "title": "双层原味板烧鸡腿麦满分",
+      "items": [
+        "双层原味板烧鸡腿麦满分"
+      ],
+      "price": 1850,
+      "productCode": "4989",
+      "time": "2026-10-18 21:09:06",
+      "evidence": "v5-singles-breakfast",
+      "source": "单品核价快照",
+      "storeQuotes": {
+        "1980076": {
+          "price": 1850,
+          "time": "2026-10-18 21:18:56",
+          "evidence": "tj-1980076-singles-b"
+        },
+        "1980342": {
+          "price": 1900,
+          "time": "2026-10-18 21:19:40",
+          "evidence": "tj-1980342-singles-b"
+        },
+        "1980183": {
+          "price": 1900,
+          "time": "2026-10-18 21:19:45",
+          "evidence": "tj-1980183-singles-b"
+        }
+      }
+    },
+    {
+      "id": "s-早餐-4825",
+      "type": "早餐",
+      "kind": "单点",
+      "title": "脆薯饼",
+      "items": [
+        "脆薯饼"
+      ],
+      "price": 800,
+      "productCode": "4825",
+      "time": "2026-10-18 21:09:06",
+      "evidence": "v5-singles-breakfast",
+      "source": "单品核价快照",
+      "storeQuotes": {
+        "1980342": {
+          "price": 850,
+          "time": "2026-10-18 21:19:40",
+          "evidence": "tj-1980342-singles-b"
+        },
+        "1980183": {
+          "price": 850,
+          "time": "2026-10-18 21:19:45",
+          "evidence": "tj-1980183-singles-b"
+        }
+      }
+    },
+    {
+      "id": "s-早餐-514700",
+      "type": "早餐",
+      "kind": "单点",
+      "title": "原味板烧鸡腿炒双蛋堡",
+      "items": [
+        "原味板烧鸡腿炒双蛋堡"
+      ],
+      "price": 1800,
+      "productCode": "514700",
+      "time": "2026-10-18 21:09:06",
+      "evidence": "v5-singles-breakfast",
+      "source": "单品核价快照",
+      "storeQuotes": {
+        "1980076": {
+          "price": 1800,
+          "time": "2026-10-18 21:18:56",
+          "evidence": "tj-1980076-singles-b"
+        },
+        "1980342": {
+          "price": 1850,
+          "time": "2026-10-18 21:19:40",
+          "evidence": "tj-1980342-singles-b"
+        },
+        "1980183": {
+          "price": 1800,
+          "time": "2026-10-18 21:19:45",
+          "evidence": "tj-1980183-singles-b"
+        }
+      }
+    },
+    {
+      "id": "s-早餐-5889",
+      "type": "早餐",
+      "kind": "单点",
+      "title": "大脆鸡扒麦满分",
+      "items": [
+        "大脆鸡扒麦满分"
+      ],
+      "price": 1150,
+      "productCode": "5889",
+      "time": "2026-10-18 21:09:06",
+      "evidence": "v5-singles-breakfast",
+      "source": "单品核价快照",
+      "storeQuotes": {
+        "1980342": {
+          "price": 1100,
+          "time": "2026-10-18 21:19:40",
+          "evidence": "tj-1980342-singles-b"
+        },
+        "1980183": {
+          "price": 1150,
+          "time": "2026-10-18 21:19:45",
+          "evidence": "tj-1980183-singles-b"
+        }
+      }
+    },
+    {
+      "id": "s-早餐-507368",
+      "type": "早餐",
+      "kind": "单点",
+      "title": "热美式中杯",
+      "items": [
+        "热美式中杯"
+      ],
+      "price": 1190,
+      "productCode": "507368",
+      "time": "2026-10-18 21:09:06",
+      "evidence": "v5-singles-breakfast",
+      "source": "单品核价快照",
+      "storeQuotes": {
+        "1980076": {
+          "price": 1190,
+          "time": "2026-10-18 21:18:56",
+          "evidence": "tj-1980076-singles-b"
+        },
+        "1980342": {
+          "price": 1190,
+          "time": "2026-10-18 21:19:40",
+          "evidence": "tj-1980342-singles-b"
+        },
+        "1980183": {
+          "price": 1190,
+          "time": "2026-10-18 21:19:45",
+          "evidence": "tj-1980183-singles-b"
+        }
+      }
+    },
+    {
+      "id": "s-早餐-502773",
+      "type": "早餐",
+      "kind": "单点",
+      "title": "猪柳炒双蛋堡",
+      "items": [
+        "猪柳炒双蛋堡"
+      ],
+      "price": 1800,
+      "productCode": "502773",
+      "time": "2026-10-18 21:09:06",
+      "evidence": "v5-singles-breakfast",
+      "source": "单品核价快照",
+      "storeQuotes": {
+        "1980076": {
+          "price": 1800,
+          "time": "2026-10-18 21:18:56",
+          "evidence": "tj-1980076-singles-b"
+        },
+        "1980342": {
+          "price": 1850,
+          "time": "2026-10-18 21:19:40",
+          "evidence": "tj-1980342-singles-b"
+        },
+        "1980183": {
+          "price": 1800,
+          "time": "2026-10-18 21:19:45",
+          "evidence": "tj-1980183-singles-b"
+        }
+      }
+    },
+    {
+      "id": "o-double-corn",
+      "title": "双吉＋小玉米 1+1",
+      "type": "正餐",
+      "kind": "1+1",
+      "items": [
+        "双层吉士汉堡",
+        "小杯玉米杯"
+      ],
+      "price": 1490,
+      "productCode": "9900013304",
+      "time": "2026-10-18 21:08:25",
+      "evidence": "v5-quote-double-corn",
+      "source": "组合核价快照",
+      "storeQuotes": {
+        "1980342": {
+          "price": 1490,
+          "time": "2026-10-18 21:18:57",
+          "evidence": "tj-1980342-o-double-corn"
+        },
+        "1980183": {
+          "price": 1490,
+          "time": "2026-10-18 21:19:42",
+          "evidence": "tj-1980183-o-double-corn"
+        }
+      }
+    },
+    {
+      "id": "o-double-zero",
+      "title": "双吉＋无糖可乐 1+1",
+      "type": "正餐",
+      "kind": "1+1",
+      "items": [
+        "双层吉士汉堡",
+        "无糖可口可乐中杯"
+      ],
+      "price": 1490,
+      "productCode": "9900013304",
+      "time": "2026-10-18 21:08:25",
+      "evidence": "v5-quote-double-zero",
+      "source": "组合核价快照",
+      "storeQuotes": {
+        "1980342": {
+          "price": 1490,
+          "time": "2026-10-18 21:18:57",
+          "evidence": "tj-1980342-o-double-zero"
+        },
+        "1980183": {
+          "price": 1490,
+          "time": "2026-10-18 21:19:42",
+          "evidence": "tj-1980183-o-double-zero"
+        }
+      }
+    },
+    {
+      "id": "o-fish-corn",
+      "title": "麦香鱼＋小玉米 1+1",
+      "type": "正餐",
+      "kind": "1+1",
+      "items": [
+        "麦香鱼",
+        "小杯玉米杯"
+      ],
+      "price": 1490,
+      "productCode": "9900013304",
+      "time": "2026-10-18 21:08:25",
+      "evidence": "v5-quote-fish-corn",
+      "source": "组合核价快照",
+      "storeQuotes": {
+        "1980342": {
+          "price": 1490,
+          "time": "2026-10-18 21:18:57",
+          "evidence": "tj-1980342-o-fish-corn"
+        },
+        "1980183": {
+          "price": 1490,
+          "time": "2026-10-18 21:19:42",
+          "evidence": "tj-1980183-o-fish-corn"
+        }
+      }
+    },
+    {
+      "id": "o-fish-zero",
+      "title": "麦香鱼＋无糖可乐 1+1",
+      "type": "正餐",
+      "kind": "1+1",
+      "items": [
+        "麦香鱼",
+        "无糖可口可乐中杯"
+      ],
+      "price": 1490,
+      "productCode": "9900013304",
+      "time": "2026-10-18 21:09:53",
+      "evidence": "v5-quote-fish-zero",
+      "source": "组合核价快照",
+      "storeQuotes": {
+        "1980342": {
+          "price": 1490,
+          "time": "2026-10-18 21:18:58",
+          "evidence": "tj-1980342-o-fish-zero"
+        },
+        "1980183": {
+          "price": 1490,
+          "time": "2026-10-18 21:19:42",
+          "evidence": "tj-1980183-o-fish-zero"
+        }
+      }
+    },
+    {
+      "id": "o-chicken-corn",
+      "title": "麦香鸡＋小玉米 1+1",
+      "type": "正餐",
+      "kind": "1+1",
+      "items": [
+        "麦香鸡",
+        "小杯玉米杯"
+      ],
+      "price": 1390,
+      "productCode": "9900015568",
+      "time": "2026-10-18 21:08:27",
+      "evidence": "v5-quote-chicken-corn",
+      "source": "组合核价快照",
+      "storeQuotes": {
+        "1980342": {
+          "price": 1390,
+          "time": "2026-10-18 21:18:58",
+          "evidence": "tj-1980342-o-chicken-corn"
+        },
+        "1980183": {
+          "price": 1390,
+          "time": "2026-10-18 21:19:43",
+          "evidence": "tj-1980183-o-chicken-corn"
+        }
+      }
+    },
+    {
+      "id": "o-chicken-zero",
+      "title": "麦香鸡＋无糖可乐 1+1",
+      "type": "正餐",
+      "kind": "1+1",
+      "items": [
+        "麦香鸡",
+        "无糖可口可乐中杯"
+      ],
+      "price": 1390,
+      "productCode": "9900015568",
+      "time": "2026-10-18 21:09:53",
+      "evidence": "v5-quote-chicken-zero",
+      "source": "组合核价快照",
+      "storeQuotes": {
+        "1980342": {
+          "price": 1390,
+          "time": "2026-10-18 21:18:58",
+          "evidence": "tj-1980342-o-chicken-zero"
+        },
+        "1980183": {
+          "price": 1390,
+          "time": "2026-10-18 21:19:43",
+          "evidence": "tj-1980183-o-chicken-zero"
+        }
+      }
+    },
+    {
+      "id": "o-nugget-corn",
+      "title": "麦乐鸡＋小玉米 1+1",
+      "type": "正餐",
+      "kind": "1+1",
+      "items": [
+        "麦乐鸡5块",
+        "小杯玉米杯"
+      ],
+      "price": 1390,
+      "productCode": "9900015568",
+      "time": "2026-10-18 21:08:27",
+      "evidence": "v5-quote-nugget-corn",
+      "source": "组合核价快照",
+      "storeQuotes": {
+        "1980076": {
+          "price": 1390,
+          "time": "2026-10-18 21:18:54",
+          "evidence": "tj-1980076-o-nugget-corn"
+        },
+        "1980342": {
+          "price": 1390,
+          "time": "2026-10-18 21:18:59",
+          "evidence": "tj-1980342-o-nugget-corn"
+        },
+        "1980183": {
+          "price": 1390,
+          "time": "2026-10-18 21:19:44",
+          "evidence": "tj-1980183-o-nugget-corn"
+        }
+      }
+    },
+    {
+      "id": "o-nugget-zero",
+      "title": "麦乐鸡＋无糖可乐 1+1",
+      "type": "正餐",
+      "kind": "1+1",
+      "items": [
+        "麦乐鸡5块",
+        "无糖可口可乐中杯"
+      ],
+      "price": 1390,
+      "productCode": "9900015568",
+      "time": "2026-10-18 21:09:53",
+      "evidence": "v5-quote-nugget-zero",
+      "source": "组合核价快照",
+      "storeQuotes": {
+        "1980076": {
+          "price": 1390,
+          "time": "2026-10-18 21:18:55",
+          "evidence": "tj-1980076-o-nugget-zero"
+        },
+        "1980342": {
+          "price": 1390,
+          "time": "2026-10-18 21:18:59",
+          "evidence": "tj-1980342-o-nugget-zero"
+        },
+        "1980183": {
+          "price": 1390,
+          "time": "2026-10-18 21:19:44",
+          "evidence": "tj-1980183-o-nugget-zero"
+        }
+      }
+    },
+    {
+      "id": "o-breakfast-soy",
+      "title": "板烧炒双蛋堡＋豆浆",
+      "type": "早餐",
+      "kind": "官方组合",
+      "items": [
+        "原味板烧鸡腿炒双蛋堡",
+        "优品豆浆小杯"
+      ],
+      "price": 2100,
+      "productCode": "9900003424",
+      "time": "2026-10-18 21:08:28",
+      "evidence": "v5-quote-breakfast-soy",
+      "source": "组合核价快照",
+      "storeQuotes": {
+        "1980076": {
+          "price": 2150,
+          "time": "2026-10-18 21:18:56",
+          "evidence": "tj-1980076-o-breakfast-soy"
+        },
+        "1980342": {
+          "price": 2200,
+          "time": "2026-10-18 21:19:40",
+          "evidence": "tj-1980342-o-breakfast-soy"
+        },
+        "1980183": {
+          "price": 2100,
+          "time": "2026-10-18 21:19:45",
+          "evidence": "tj-1980183-o-breakfast-soy"
+        }
+      }
+    },
+    {
+      "id": "o-breakfast-milk",
+      "title": "板烧炒双蛋堡＋牛奶",
+      "type": "早餐",
+      "kind": "官方组合",
+      "items": [
+        "原味板烧鸡腿炒双蛋堡",
+        "纯牛奶（盒装）"
+      ],
+      "price": 2250,
+      "productCode": "9900003424",
+      "time": "2026-10-18 21:08:29",
+      "evidence": "v5-quote-breakfast-milk",
+      "source": "组合核价快照",
+      "storeQuotes": {
+        "1980076": {
+          "price": 2300,
+          "time": "2026-10-18 21:18:56",
+          "evidence": "tj-1980076-o-breakfast-milk"
+        },
+        "1980342": {
+          "price": 2350,
+          "time": "2026-10-18 21:19:40",
+          "evidence": "tj-1980342-o-breakfast-milk"
+        },
+        "1980183": {
+          "price": 2250,
+          "time": "2026-10-18 21:19:46",
+          "evidence": "tj-1980183-o-breakfast-milk"
+        }
+      }
+    },
+    {
+      "id": "o-breakfast-set",
+      "title": "板烧炒双蛋堡＋薯饼＋牛奶",
+      "type": "早餐",
+      "kind": "官方套餐",
+      "items": [
+        "原味板烧鸡腿炒双蛋堡",
+        "脆薯饼",
+        "纯牛奶（盒装）"
+      ],
+      "price": 2500,
+      "productCode": "9900003466",
+      "time": "2026-10-18 21:08:29",
+      "evidence": "v5-quote-breakfast-set",
+      "source": "组合核价快照",
+      "storeQuotes": {
+        "1980342": {
+          "price": 2600,
+          "time": "2026-10-18 21:19:41",
+          "evidence": "tj-1980342-o-breakfast-set"
+        },
+        "1980183": {
+          "price": 2500,
+          "time": "2026-10-18 21:19:46",
+          "evidence": "tj-1980183-o-breakfast-set"
+        }
+      }
+    },
+    {
+      "id": "o-coffee",
+      "title": "火腿扒麦满分＋热美式",
+      "type": "早餐",
+      "kind": "官方组合",
+      "items": [
+        "火腿扒麦满分",
+        "热美式中杯"
+      ],
+      "price": 1490,
+      "productCode": "9900013221",
+      "time": "2026-10-18 21:09:06",
+      "evidence": "v5-quote-coffee",
+      "source": "组合核价快照",
+      "storeQuotes": {
+        "1980076": {
+          "price": 1490,
+          "time": "2026-10-18 21:18:56",
+          "evidence": "tj-1980076-o-coffee"
+        },
+        "1980342": {
+          "price": 1490,
+          "time": "2026-10-18 21:19:41",
+          "evidence": "tj-1980342-o-coffee"
+        },
+        "1980183": {
+          "price": 1490,
+          "time": "2026-10-18 21:19:46",
+          "evidence": "tj-1980183-o-coffee"
+        }
+      }
+    },
+    {
+      "id": "o-board-milk",
+      "title": "板烧鸡腿堡＋小玉米＋牛奶",
+      "type": "正餐",
+      "kind": "官方套餐",
+      "items": [
+        "板烧鸡腿堡",
+        "小杯玉米杯",
+        "纯牛奶（盒装）"
+      ],
+      "price": 3400,
+      "productCode": "9900005462",
+      "time": "2026-10-18 21:09:54",
+      "evidence": "v5-quote-board-milk",
+      "source": "组合核价快照",
+      "storeQuotes": {
+        "1980076": {
+          "price": 3400,
+          "time": "2026-10-18 21:18:55",
+          "evidence": "tj-1980076-o-board-milk"
+        },
+        "1980342": {
+          "price": 3450,
+          "time": "2026-10-18 21:19:00",
+          "evidence": "tj-1980342-o-board-milk"
+        },
+        "1980183": {
+          "price": 3400,
+          "time": "2026-10-18 21:19:45",
+          "evidence": "tj-1980183-o-board-milk"
+        }
+      }
+    },
+    {
+      "id": "o-board-fries",
+      "title": "板烧鸡腿堡＋中薯＋无糖可乐",
+      "type": "正餐",
+      "kind": "官方套餐",
+      "items": [
+        "板烧鸡腿堡",
+        "中薯条",
+        "无糖可口可乐中杯"
+      ],
+      "price": 3450,
+      "productCode": "9900005462",
+      "time": "2026-10-18 21:09:54",
+      "evidence": "v5-quote-board-fries",
+      "source": "组合核价快照",
+      "storeQuotes": {
+        "1980076": {
+          "price": 3450,
+          "time": "2026-10-18 21:18:55",
+          "evidence": "tj-1980076-o-board-fries"
+        },
+        "1980342": {
+          "price": 3500,
+          "time": "2026-10-18 21:19:00",
+          "evidence": "tj-1980342-o-board-fries"
+        },
+        "1980183": {
+          "price": 3450,
+          "time": "2026-10-18 21:19:45",
+          "evidence": "tj-1980183-o-board-fries"
+        }
+      }
+    }
+  ],
+  "pricingSnapshot": {
+    "storeCode": "1450056",
+    "storeName": "上海食品一店",
+    "date": "2026-10-18",
+    "breakfastReservation": "2026-10-19 08:15",
+    "note": "当前周餐单使用天津时代奥城周边三店核价；上海数据保留为购买单元来源。各店缺报价的组合不可参与该店规划。早餐预约10月19日，正餐是10月18日快照；未来供应与整单需复核。",
+    "excluded": [
+      {
+        "name": "大堡口福三件套",
+        "price": 2290,
+        "reason": "已核价，当前主食缺少精确对应营养记录，不参与营养优化。"
+      }
+    ]
+  },
+  "nearbyStores": [
+    {
+      "id": "1980076",
+      "name": "宾水西道店",
+      "address": "宾水西道时代奥城1号楼5号商铺",
+      "distance": 155,
+      "minutes": 2,
+      "hours": "05:00—23:00",
+      "priced": true
+    },
+    {
+      "id": "1980342",
+      "name": "凌宾路店",
+      "address": "李七庄凌庄子村凌宾路凌奥创意产业园美食半条街东增3号-1商铺",
+      "distance": 1378,
+      "minutes": 18,
+      "hours": "07:00—23:00",
+      "priced": true
+    },
+    {
+      "id": "1980183",
+      "name": "环湖中道 (华夏未来)店",
+      "address": "环湖中道3号华夏未来A座底商",
+      "distance": 1388,
+      "minutes": 18,
+      "hours": "07:00—22:00",
+      "priced": true
+    },
+    {
+      "id": "1980374",
+      "name": "体北金茂府店",
+      "address": "环湖中路西侧体院道2号嘉茂荟1-底商1号 ",
+      "distance": 1406,
+      "minutes": 18,
+      "hours": "07:00—23:00",
+      "priced": false
+    },
+    {
+      "id": "1980192",
+      "name": "天塔道店",
+      "address": "天塔道与水上公园东路交口电能小镇B1层",
+      "distance": 1716,
+      "minutes": 22,
+      "hours": "07:00—22:00",
+      "priced": false
+    }
+  ],
+  "location": {
+    "city": "天津",
+    "keyword": "时代奥城",
+    "time": "2026-10-18 21:15:59",
+    "note": "用户指定的示例地点；不是家/公司定位。距离为门店接口返回值，分钟数仅按80米/分钟换算，非实际步行或绕路导航。",
+    "company": null
+  }
+};
+
+/* Adult planning estimates, not a prescription. See methodology in the UI / PRD v1.3. */
+(function(root){
+  'use strict';
+  const labels={loss:'减脂',maintain:'维持',gain:'增肌'};
+  function targets(s){
+    const errors=[];
+    for(const [key,min,max] of [['height',130,220],['weight',35,200],['age',18,65]])
+      if(!Number.isFinite(s[key])||s[key]<min||s[key]>max)errors.push(`${{height:'身高',weight:'体重',age:'年龄'}[key]}需在 ${min}–${max} 范围内`);
+    if(!['male','female'].includes(s.sex)||![1.2,1.375,1.55,1.725].includes(s.activity)||!labels[s.objective])errors.push('请完整填写估算参数');
+    if(s.special)errors.push('孕哺期或需要特殊营养管理时，请使用专业人员制定的方案');
+    if(errors.length)return {valid:false,errors};
+    const bmi=s.weight/(s.height/100)**2;
+    if(s.objective==='loss'&&bmi<18.5)return {valid:false,errors:['当前体重偏低，不生成减脂餐单；请重新评估目标。']};
+    const resting=10*s.weight+6.25*s.height-5*s.age+(s.sex==='male'?5:-161);
+    const tdee=resting*s.activity;
+    // Product heuristics, not values prescribed by the Mifflin paper.
+    const adjustment=s.objective==='loss'?-0.15:s.objective==='gain'?0.08:0;
+    const kcal=Math.round(tdee*(1+adjustment)/10)*10;
+    if(kcal<1200)return {valid:false,errors:['估算能量过低，超出本演示的自动规划范围，请由专业人员评估。']};
+    const proteinFactor=s.objective==='gain'||s.training?1.6:s.objective==='loss'?1.2:1;
+    const protein=Math.round(s.weight*proteinFactor);
+    const fat=Math.round(kcal*0.3/9),carbs=Math.round((kcal-protein*4-fat*9)/4);
+    return {valid:true,errors:[],label:labels[s.objective],bmi,resting:Math.round(resting),tdee:Math.round(tdee),adjustment,kcal,
+      kcalMin:Math.round(kcal*.9),kcalMax:Math.round(kcal*1.1),protein,proteinFactor,fat,carbs,sodium:2000,
+      trainingNote:s.objective==='gain'&&!s.training?'增肌需要配合力量训练；这里只估算饮食参考。':''};
+  }
+  root.MaiNutrition={targets,labels};
+})(typeof window!=='undefined'?window:globalThis);
+
+/* Local, deterministic demonstration planner. Prices and routes are fixtures. */
+(function (root) {
+  'use strict';
+  // Whole-meal fixtures. These are custom combinations, not verified official bundle SKUs.
+  const defs = [
+    ['b0','早餐','猪柳蛋热奶三件餐','猪肉',1850,['猪柳蛋麦满分','脆薯饼','热牛奶小杯']],
+    ['b1','早餐','火腿扒豆浆三件餐','猪肉',1500,['火腿扒麦满分','脆薯饼','优品豆浆小杯']],
+    ['b2','早餐','板烧暖心粥餐','鸡肉',1750,['原味板烧鸡腿麦满分','皮蛋鸡肉粥','热牛奶小杯']],
+    ['b3','早餐','猪柳薯饼热奶餐','猪肉',1650,['猪柳麦满分','脆薯饼','热牛奶小杯']],
+    ['b4','早餐','双蛋热奶三件餐','猪肉',1950,['猪柳炒双蛋堡','苹果片','热牛奶小杯']],
+    ['b5','早餐','脆鸡豆浆三件餐','鸡肉',1700,['大脆鸡扒麦满分','苹果片','优品豆浆小杯']],
+    ['b6','早餐','烟肉蛋暖粥餐','猪肉',1650,['烟肉蛋麦满分','皮蛋鸡肉粥','优品豆浆小杯']],
+    ['b7','早餐','双层板烧热奶餐','鸡肉',2250,['双层原味板烧鸡腿麦满分','脆薯饼','热牛奶小杯']],
+    ['b8','早餐','板烧双蛋活力餐','鸡肉',2450,['原味板烧鸡腿炒双蛋堡','脆薯饼','热牛奶小杯']],
+    ['b9','早餐','麦满分美式三件餐','猪肉',1750,['猪柳蛋麦满分','脆薯饼','热美式小杯']],
+    ['m0','正餐','板烧双拼四件餐','鸡肉',2600,['板烧鸡腿堡','麦乐鸡5块','小杯玉米杯','无糖可口可乐中杯']],
+    ['m1','正餐','巨无霸经典三件餐','牛肉',2800,['巨无霸','小薯条','无糖可口可乐中杯']],
+    ['m2','正餐','鱼香双拼四件餐','鱼肉',2450,['麦香鱼','麦乐鸡5块','大杯玉米杯','无糖可口可乐中杯']],
+    ['m3','正餐','双吉薯条三件餐','牛肉',2350,['双层吉士汉堡','小薯条','无糖可口可乐中杯']],
+    ['m4','正餐','麦香鸡玉米牛奶餐','鸡肉',2200,['麦香鸡','大杯玉米杯','纯牛奶（盒装）']],
+    ['m5','正餐','麦辣玉米三件餐','鸡肉',2500,['麦辣鸡腿汉堡','大杯玉米杯','无糖可口可乐中杯']],
+    ['m6','正餐','蔬萃牛堡经典餐','牛肉',2700,['培根蔬萃双层牛堡','小薯条','无糖可口可乐中杯']],
+    ['m7','正餐','双层鳕鱼牛奶餐','鱼肉',2900,['双层深海鳕鱼堡','大杯玉米杯','纯牛奶（盒装）']],
+    ['m8','正餐','板烧玉米牛奶餐','鸡肉',2450,['板烧鸡腿堡','大杯玉米杯','纯牛奶（盒装）']],
+    ['m9','正餐','双吉双拼牛奶餐','牛肉',3100,['双层吉士汉堡','麦乐鸡5块','纯牛奶（盒装）']],
+    ['m10','正餐','板烧双拼牛奶餐','鸡肉',3200,['板烧鸡腿堡','麦乐鸡5块','纯牛奶（盒装）']],
+    ['m11','正餐','鳕鱼双拼牛奶餐','鱼肉',3450,['双层深海鳕鱼堡','麦乐鸡5块','纯牛奶（盒装）']],
+    ['m12','正餐','巨无霸充能四件餐','牛肉',3600,['巨无霸','中薯条','麦乐鸡5块','纯牛奶（盒装）']],
+    ['m13','正餐','麦香鱼玉米牛奶餐','鱼肉',2250,['麦香鱼','大杯玉米杯','纯牛奶（盒装）']],
+    ['m14','正餐','麦辣经典三件餐','鸡肉',2550,['麦辣鸡腿汉堡','小薯条','无糖可口可乐中杯']],
+    ['m15','正餐','双吉玉米牛奶餐','牛肉',2500,['双层吉士汉堡','大杯玉米杯','纯牛奶（盒装）']]
+  ];
+  const settings = {budget:450,budgetBasis:'cash',height:175,weight:75,age:30,sex:'male',activity:1.375,objective:'loss',training:false,special:false,mode:'balanced',card:'none',cardPrice:30,cardDays:30,cardUses:7,gold:'none',goldPrice:19,goldDays:30,goldUses:14,coupons:false,maxDetour:20,homeWednesday:false,seed:0};
+  function create(data) {
+    const nutrientKeys=['kcal','protein','fat','carbs','sodium','calcium'];
+    const sumNutrition=items=>Object.fromEntries(nutrientKeys.map(k=>[k,items.reduce((n,x)=>n+data.foods[x][k],0)]));
+    const offers=data.offers;
+    const count=items=>items.reduce((m,x)=>(m[x]=(m[x]||0)+1,m),{});
+    // Exact multiset cover: same edible items, cheapest combination of observed purchase units.
+    // Never assume an extra drink is free or that unrelated promotions stack.
+    const purchaseCache=new Map();
+    function purchase(items,type,storeId=null){
+      const key=(storeId||'reference')+'|'+type+'|'+items.slice().sort().join('|');if(purchaseCache.has(key))return purchaseCache.get(key);
+      if(!items.length)return {price:0,offers:[]};
+      const remaining=count(items);let best=null;
+      for(const original of offers.filter(o=>o.type===type&&o.items.includes(items[0])&&(!storeId||o.storeQuotes?.[storeId]))){
+        const offer=storeId?{...original,...original.storeQuotes[storeId]}:original;
+        const use=count(offer.items);if(Object.keys(use).some(k=>use[k]>(remaining[k]||0)))continue;
+        const rest={...remaining};for(const k in use)rest[k]-=use[k];
+        const next=purchase(Object.keys(rest).flatMap(k=>Array(rest[k]).fill(k)),type,storeId);
+        if(next&&(!best||offer.price+next.price<best.price))best={price:offer.price+next.price,offers:[offer,...next.offers]};
+      }
+      purchaseCache.set(key,best);return best;
+    }
+    const recipes=defs.map(([id,type,title,family,price,items])=>({id,type,title,main:items[0],items,price,family,legacy:true,kind:'旧版自选组合',source:'旧版演示价',...sumNutrition(items)}));
+    const signatures=new Set();
+    const family=name=>/鱼/.test(name)?'鱼肉':/吉士|牛|巨无霸/.test(name)?'牛肉':/猪|火腿|烟肉/.test(name)?'猪肉':'鸡肉';
+    function add(items,type,title){
+      const signature=type+'|'+items.slice().sort().join('|');if(signatures.has(signature))return;
+      const route=purchase(items,type);if(!route)return;
+      signatures.add(signature);const main=items[0],nutrition=sumNutrition(items),id='n'+(recipes.length-defs.length);
+      const kind=route.offers.length===1?route.offers[0].kind:route.offers.some(o=>o.kind!=='单点')?'组合＋加购':'单点搭配';
+      recipes.push({id,type,title:title||items.join('＋'),main,items,family:family(main),price:route.price,route:route.offers,kind,
+        source:route.offers.length===1?'核价快照':'核价单元合计',legacy:false,image:data.foods[main].image,...nutrition,
+        proteinPerYuan:nutrition.protein/(route.price/100),proteinPer100Kcal:nutrition.kcal?nutrition.protein/nutrition.kcal*100:0});
+    }
+    const mains=new Set(['猪柳蛋麦满分','火腿扒麦满分','原味板烧鸡腿麦满分','猪柳麦满分','猪柳炒双蛋堡','大脆鸡扒麦满分','双层原味板烧鸡腿麦满分','原味板烧鸡腿炒双蛋堡','双层吉士汉堡','麦香鱼','麦香鸡','板烧鸡腿堡','麦辣鸡腿汉堡','培根蔬萃双层牛堡','麦乐鸡5块']);
+    offers.forEach(o=>{if(o.kind!=='单点'||mains.has(o.items[0]))add(o.items,o.type,o.title);});
+    // Keep combinations only when every item has a quoted buying route.
+    defs.forEach(([,type,title,, ,items])=>add(items,type,title));
+    offers.filter(o=>o.type==='早餐'&&o.kind==='单点'&&mains.has(o.items[0])).forEach(o=>{
+      add([...o.items,'纯牛奶（盒装）'],'早餐');
+      if(o.items[0]==='猪柳蛋麦满分'||o.items[0]==='原味板烧鸡腿炒双蛋堡')add([...o.items,'脆薯饼','纯牛奶（盒装）'],'早餐');
+    });
+    offers.filter(o=>o.kind==='1+1'&&o.items[0]!=='麦乐鸡5块').forEach(o=>{
+      add([...o.items,'麦乐鸡5块'],'正餐');add([...o.items,'纯牛奶（盒装）'],'正餐');
+    });
+    for(const second of ['双层吉士汉堡','麦香鸡','麦香鱼'])add(['双层吉士汉堡','小杯玉米杯',second,'无糖可口可乐中杯'],'正餐');
+    const byId=Object.fromEntries(recipes.map(r=>[r.id,r]));
+    const localized=new Map();
+    for(const r of recipes.filter(r=>!r.legacy)){
+      const found=[];
+      for(const store of data.nearbyStores.filter(x=>x.priced)){
+        const route=purchase(r.items,r.type,store.id);if(!route)continue;
+        const v={...r,price:route.price,route:route.offers,storeId:store.id,kind:route.offers.length===1?route.offers[0].kind:route.offers.some(o=>o.kind!=='单点')?'组合＋加购':'单点搭配',source:route.offers.length===1?'门店核价快照':'门店核价合计',proteinPerYuan:r.protein/(route.price/100)};
+        localized.set(r.id+'|'+store.id,v);found.push(v);
+      }
+      if(found.length){const best=found.sort((a,b)=>a.price-b.price)[0];Object.assign(r,{price:best.price,route:best.route,source:best.source,proteinPerYuan:best.proteinPerYuan,lowestStore:best.storeId});}
+    }
+    const forStore=(r,id)=>r.legacy?r:localized.get(r.id+'|'+id)||null;
+    const recipe=slot=>forStore(byId[slot.recipe],slot.store?.id)||byId[slot.recipe];
+    const active=recipes.filter(r=>!r.legacy&&r.lowestStore);
+    const valueMetrics=(r,price=r.price)=>({perYuan:price>0?r.protein/(price/100):null,per100Kcal:r.kcal>0?r.protein/r.kcal*100:null,cost20g:r.protein>0?(price/100)/r.protein*20:null});
+    const storesFor=(day,meal,s)=>data.nearbyStores.filter(x=>x.priced&&x.minutes<=s.maxDetour).map(x=>({...x,delta:0,tag:'时代奥城周边 · 接口距离'}));
+    const cost = slot => recipe(slot).price+(recipe(slot).legacy?slot.store.delta:0);
+    const prorate=(fee,days,start=0,end=Math.min(start+7,days))=>Math.round(fee*Math.min(days,Math.max(0,end))/days)-Math.round(fee*Math.min(days,Math.max(0,start))/days);
+    function cardModels(s) {
+      return [
+        {id:'breakfast',name:'早餐卡',state:s.card,price:Math.round(s.cardPrice*100),days:s.cardDays,limit:s.cardUses,discount:200,eligible:p=>p.meal===0&&recipe(p).legacy},
+        {id:'gold',name:'麦金卡',state:s.gold,price:Math.round(s.goldPrice*100),days:s.goldDays,limit:s.goldUses,discount:250,eligible:p=>p.meal!==0&&recipe(p).legacy}
+      ].filter(c=>c.state!=='none').map(c=>({...c,weeklyFee:prorate(c.price,c.days),cashPurchase:c.state==='new'?c.price:0}));
+    }
+    // Demo alternatives are mutually exclusive per meal. Real compatibility must be verified by MCP.
+    function billMeals(plan,s,cards=cardModels(s)) {
+      const used=Object.fromEntries(cards.map(c=>[c.id,0]));let coupons=s.coupons?2:0;
+      return plan.map(p=>{
+        const gross=cost(p);let best={amount:0,id:null};
+        for(const c of cards)if(c.eligible(p)&&used[c.id]<c.limit&&c.discount>best.amount)best={amount:c.discount,id:c.id};
+        const coupon=recipe(p).legacy&&p.meal===1&&coupons>0&&300>best.amount?300:0;
+        if(coupon){coupons--;best={amount:0,id:null};}
+        else if(best.id)used[best.id]++;
+        return {gross,card:best.amount,cardSource:best.id,coupon,cashMeal:gross-best.amount-coupon,cardShare:0,net:gross-best.amount-coupon};
+      });
+    }
+    function totals(plan,s) {
+      const cards=cardModels(s),ledger=billMeals(plan,s,cards);let unallocated=0;
+      const cardRows=cards.map(c=>{
+        const indices=ledger.map((x,i)=>x.cardSource===c.id?i:-1).filter(i=>i>=0);
+        const used=indices.length,grossSavings=indices.reduce((n,i)=>n+ledger[i].card,0);
+        if(used){
+          const base=Math.floor(c.weeklyFee/used),remainder=c.weeklyFee%used;
+          indices.forEach((i,k)=>{ledger[i].cardShare=base+(k<remainder?1:0);ledger[i].net+=ledger[i].cardShare;});
+        }else unallocated+=c.weeklyFee;
+        return {...c,eligible:undefined,used,grossSavings,netSaving:grossSavings-c.weeklyFee,perUse:used?c.weeklyFee/used:null};
+      });
+      const sum=k=>ledger.reduce((n,x)=>n+x[k],0);
+      const fee=cards.reduce((n,c)=>n+c.weeklyFee,0),purchaseFees=cards.reduce((n,c)=>n+c.cashPurchase,0);
+      return {gross:sum('gross'),card:sum('card'),coupons:sum('coupon'),fee,purchaseFees,unallocated,cardRows,
+        total:sum('net')+unallocated,cashTotal:sum('cashMeal')+purchaseFees,ledger,minutes:plan.reduce((n,p)=>n+p.store.minutes,0),
+        unique:new Set(plan.map(p=>p.recipe)).size,
+        kcal:plan.reduce((n,p)=>n+recipe(p).kcal,0),protein:plan.reduce((n,p)=>n+recipe(p).protein,0)};
+    }
+    const budgetCost=(t,s)=>s.budgetBasis==='cash'?t.cashTotal:t.total;
+    const daily=(plan,day)=>Object.fromEntries(nutrientKeys.map(k=>[k,plan.filter(p=>p.day===day).reduce((n,p)=>n+recipe(p)[k],0)]));
+    function choicesFor(s,old=[]){return Array.from({length:21},(_,i)=>{
+      const day=Math.floor(i/3),meal=i%3,locked=old.find(p=>p.day===day&&p.meal===meal&&p.locked);
+      if(locked)return [{...locked,store:{...locked.store}}];
+      return active.filter(r=>r.kcal>=250&&(meal===0?r.type==='早餐':r.type==='正餐')).flatMap(r=>{
+        const stores=storesFor(day,meal,s).filter(store=>forStore(r,store.id));
+        // For identical food, a farther store at no lower price is dominated.
+        return stores.filter(st=>!stores.some(other=>other.id!==st.id&&other.minutes<=st.minutes&&forStore(r,other.id).price<=forStore(r,st.id).price&&(other.minutes<st.minutes||forStore(r,other.id).price<forStore(r,st.id).price))).map(store=>({day,meal,recipe:r.id,store,locked:false}));
+      });
+    });}
+    function generate(s,old=[]){
+      const target=root.MaiNutrition.targets(s);if(!target.valid)return [];
+      const choices=choicesFor(s,old);if(choices.some(x=>!x.length))return [];
+      const cheapest=choices.map(xs=>xs.reduce((a,b)=>cost(a)<cost(b)?a:b));
+      const fixed=budgetCost(totals(cheapest,s),s)-cheapest.reduce((n,p)=>n+cost(p),0),cap=Math.round(s.budget*100);
+      if(cheapest.reduce((n,p)=>n+cost(p),fixed)>cap)return [];
+      const suffix=Array(22).fill(0);for(let i=20;i>=0;i--)suffix[i]=suffix[i+1]+cost(cheapest[i]);
+      const plan=[],counts={};let spent=fixed;
+      for(let day=0;day<7;day++){
+        const i=day*3,allow=cap-spent-suffix[i+3],dailyBudget=(cap-spent)/(7-day);let best=null,bestScore=Infinity;
+        const xs=choices.slice(i,i+3).map((slots,j)=>slots.map(slot=>{const r=recipe(slot),price=cost(slot);return {slot,r,price,hash:Number(r.id.slice(1))||0,
+          base:price/100*(s.mode==='saving'?1.15:.5)+slot.store.minutes*(s.mode==='speed'?2:s.mode==='saving'?.03:.12)+(counts[r.id]||0)*(s.mode==='variety'?8:3)
+          +Math.max(0,target.protein*.22-r.protein)*1.2+Math.max(0,target.kcal*(j===0?.18:.25)-r.kcal)/25
+          +(day>0&&plan[i-3+j].recipe===r.id?8:0)};}));
+        for(const a of xs[0])for(const b of xs[1])for(const c of xs[2]){
+          const price=a.price+b.price+c.price;if(price>allow)continue;
+          const kcal=a.r.kcal+b.r.kcal+c.r.kcal,protein=a.r.protein+b.r.protein+c.r.protein;
+          let score=Math.abs(kcal-target.kcal)/target.kcal*260+Math.max(0,target.protein-protein)/target.protein*320;
+          score+=Math.max(0,a.r.sodium+b.r.sodium+c.r.sodium-target.sodium)/100;
+          score+=Math.abs(a.r.fat+b.r.fat+c.r.fat-target.fat)/target.fat*12+Math.abs(a.r.carbs+b.r.carbs+c.r.carbs-target.carbs)/target.carbs*8;
+          score+=Math.max(0,price-dailyBudget)/100*5+price/100/Math.max(1,Math.min(protein,target.protein))*18;
+          score+=a.base+b.base+c.base+(b.r.id===c.r.id?22:0)+(b.r.family===c.r.family?4:0);
+          score+=((a.hash*7+b.hash*11+c.hash*3+s.seed*13+day*5)%17)/12;
+          if(score<bestScore){bestScore=score;best=[a.slot,b.slot,c.slot];}
+        }
+        if(!best)return [];plan.push(...best.map(p=>({...p,store:{...p.store}})));spent+=best.reduce((n,p)=>n+cost(p),0);best.forEach(p=>counts[p.recipe]=(counts[p.recipe]||0)+1);
+      }
+      return plan;
+    }
+    function minimum(s,old=[]){const choices=choicesFor(s,old);if(choices.some(x=>!x.length))return Infinity;const plan=choices.map(xs=>xs.reduce((a,b)=>cost(a)<cost(b)?a:b));return budgetCost(totals(plan,s),s);}
+    function alternatives(plan,index,s) {
+      const slot=plan[index];
+      return active.filter(r=>forStore(r,slot.store.id)&&r.id!==slot.recipe && (slot.meal===0?r.type==='早餐':r.type==='正餐'))
+        .map(r=>({ ...slot, recipe:r.id,locked:false }))
+        .sort((a,b)=>{
+          const count=id=>plan.filter(p=>p.recipe===id).length;
+          return count(a.recipe)-count(b.recipe)||Math.abs(recipe(a).kcal-recipe(slot).kcal)-Math.abs(recipe(b).kcal-recipe(slot).kcal);
+        });
+    }
+    // Replacing one meal never regenerates or changes the other twenty meals.
+    function replacementOptions(plan,index,s){
+      if(plan.length!==21||!plan[index]||plan[index].locked)return [];
+      const target=root.MaiNutrition.targets(s);if(!target.valid)return [];
+      const current=recipe(plan[index]),before=totals(plan,s),oldDay=daily(plan,plan[index].day);
+      return alternatives(plan,index,s).map(slot=>{
+        const next=plan.map((p,i)=>({...p,store:{...p.store},...(i===index?{recipe:slot.recipe}: {})}));
+        const after=totals(next,s),r=recipe(slot),d=daily(next,slot.day);
+        const nextCost=budgetCost(after,s),delta=nextCost-budgetCost(before,s);
+        const deficit=(v,t)=>Math.max(0,t-v);
+        const score=Math.abs(r.kcal-current.kcal)/50+Math.abs(r.protein-current.protein)/4
+          +Math.max(0,deficit(d.protein,target.protein)-deficit(oldDay.protein,target.protein))/3
+          +Math.max(0,d.sodium-oldDay.sodium)/300+plan.filter(p=>p.recipe===slot.recipe).length;
+        return {slot,plan:next,recipe:r,after,delta,score,allowed:nextCost<=Math.round(s.budget*100),excess:Math.max(0,nextCost-Math.round(s.budget*100))};
+      }).sort((a,b)=>Number(b.allowed)-Number(a.allowed)||a.score-b.score||a.delta-b.delta);
+    }
+    function randomReplacement(plan,index,s,seen=[],rng=Math.random){
+      const allowed=replacementOptions(plan,index,s).filter(x=>x.allowed);
+      if(!allowed.length)return null;
+      // Avoid this slot's recent choices until its affordable pool has been exhausted.
+      const fresh=allowed.filter(x=>!seen.includes(x.recipe.id));
+      const reset=!fresh.length,pool=(reset?allowed:fresh).slice(0,5);
+      const draw=Math.min(0.999999999,Math.max(0,Number(rng())||0));
+      return {...pool[Math.floor(draw*pool.length)],reset,poolSize:pool.length};
+    }
+    return {recipes,active,purchase,valueMetrics,forStore,recipe,generate,totals,alternatives,cost,storesFor,cardModels,prorate,budgetCost,daily,minimum,replacementOptions,randomReplacement};
+  }
+  root.MaiPlanner={create,defaults:settings};
+})(typeof window!=='undefined'?window:globalThis);
+
+(function(){
+'use strict';
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const money=n=>(n/100).toFixed(2).replace(/\.00$/,'').replace(/(\.\d)0$/,'$1');
+const days=['周一','周二','周三','周四','周五','周六','周日'],meals=['早餐','午餐','晚餐'],times=['08:15','12:10','18:45'];
+const storageKey='yirisanmai-demo-v3',planner=MaiPlanner.create(MAI_DATA);
+let settings={...MaiPlanner.defaults},plan=[],retained=[],day=0,weekView=false,swapIndex=0,swapPlan=null,toastTimer,traceTimers=[],loaded=false;
+try{
+ const saved=JSON.parse(localStorage.getItem(storageKey));
+ if(saved?.version===3){
+  const s={...MaiPlanner.defaults,...saved.settings};
+  if(!MaiNutrition.targets(s).valid||!Number.isFinite(s.budget)||s.budget<100||s.budget>1500||!['cash','amortized'].includes(s.budgetBasis)||![5,10,15,20,30].includes(s.maxDetour)||!['balanced','saving','speed','variety'].includes(s.mode)||!Number.isInteger(s.seed))throw Error('Invalid saved profile');
+  for(const prefix of ['card','gold'])if(!['owned','none','new'].includes(s[prefix])||!Number.isFinite(s[prefix+'Price'])||s[prefix+'Price']<0||s[prefix+'Price']>300||!Number.isInteger(s[prefix+'Days'])||s[prefix+'Days']<7||s[prefix+'Days']>366||!Number.isInteger(s[prefix+'Uses'])||s[prefix+'Uses']<0||s[prefix+'Uses']>(prefix==='card'?7:14))throw Error('Invalid saved card');
+  if(!Array.isArray(saved.plan)||saved.plan.length!==21)throw Error('Invalid saved plan');
+  retained=saved.plan.map((p,i)=>{const d=Math.floor(i/3),m=i%3,r=planner.recipes.find(x=>x.id===p.recipe),store=planner.storesFor(d,m,{...s,maxDetour:30}).find(x=>x.id===p.store);if(!r||!store||(!r.legacy&&!planner.forStore(r,store.id))||(r.type==='早餐')!==(m===0))throw Error('Invalid saved meal');return {day:d,meal:m,recipe:r.id,store,locked:!!p.locked};});if(planner.budgetCost(planner.totals(retained,s),s)>Math.round(s.budget*100))throw Error("Saved plan exceeds budget");settings=s;plan=retained;loaded=true;
+ }
+}catch(_){settings={...MaiPlanner.defaults};retained=[];}
+const clone=x=>JSON.parse(JSON.stringify(x));
+let draft=clone(settings),history=[],recent={},feedback=null,lastChanged=-1,hasEdited=loaded,swapOptions=[];
+const fingerprint=()=>JSON.stringify({settings,plan:plan.map(p=>({recipe:p.recipe,store:p.store.id,locked:p.locked}))});
+let savedFingerprint=loaded?fingerprint():null;
+const dirty=()=>JSON.stringify(draft)!==JSON.stringify(settings);
+const signed=(n,unit='')=>(n>0?'+':n<0?'−':'')+Math.abs(n)+unit;
+function checkpoint(){history.push(clone({settings,plan,retained,day,weekView,recent,hasEdited}));if(history.length>20)history.shift();}
+function draftErrors(){
+ const out=MaiNutrition.targets(draft).errors.slice();
+ if(!Number.isFinite(draft.budget)||draft.budget<100||draft.budget>1500)out.unshift('每周预算请填 ¥100–1500');
+ if(!Number.isInteger(draft.age))out.push('年龄请填写整数');
+ for(const pre of ['card','gold']){
+  if(!Number.isFinite(draft[pre+'Price'])||draft[pre+'Price']<0||draft[pre+'Price']>300)out.push((pre==='card'?'早餐卡':'麦金卡')+'卡价请填 0–300 元');
+  if(!Number.isInteger(draft[pre+'Days'])||draft[pre+'Days']<7||draft[pre+'Days']>366)out.push('卡有效天数请填 7–366 的整数');
+  if(!Number.isInteger(draft[pre+'Uses'])||draft[pre+'Uses']<0||draft[pre+'Uses']>(pre==='card'?7:14))out.push('请检查本周用卡次数');
+ }
+ return [...new Set(out)];
+}
+function updateDraftUI(){
+ const pending=dirty(),ready=plan.length===21;
+ $('#pending-banner').hidden=!pending;
+ $('#pending-copy').textContent=`当前餐单仍按 ¥${settings.budget} ${settings.budgetBasis==='cash'?'现金':'折算'}预算及${MaiNutrition.labels[settings.objective]}目标生成。应用后才会更新。`;
+ $('#regenerate').textContent=pending?'应用条件，重新生成 →':'按当前条件生成周计划 →';
+ $('#undo').disabled=!history.length||pending;$('#reroll-week').disabled=pending||!ready;
+ $('#save').disabled=pending||!ready;$('#export').disabled=pending||!ready;
+ $('#save-state').textContent=pending?'有条件等待应用':savedFingerprint===fingerprint()?'已保存到本浏览器':hasEdited?'餐单已修改 · 尚未保存':'示例周计划 · 可先试试随机换餐';
+ for(const attr of ['objective','mode'])$$('[data-'+attr+']').forEach(b=>{const on=b.dataset[attr]===draft[attr];b.classList.toggle('active',on);b.setAttribute('aria-pressed',on);});
+ for(const pre of ['card','gold'])for(const field of ['price','days','uses'])$('#'+pre+'-'+field).disabled=draft[pre]==='none';
+ $$('[data-random],[data-swap],[data-lock]').forEach(b=>{const key=b.dataset.random??b.dataset.swap??b.dataset.lock;b.disabled=pending||((b.hasAttribute('data-random')||b.hasAttribute('data-swap'))&&plan[Number(key)]?.locked);});
+ $$('[data-prompt],#prompt-form button,#prompt').forEach(b=>b.disabled=pending);
+ $('#change-feedback').hidden=!feedback;
+ if(feedback)$('#change-feedback').innerHTML=`<div><b>${esc(feedback.title)}</b><p>${esc(feedback.detail)}</p></div><button class="outlined" id="undo-change" ${pending||!history.length?'disabled':''}>撤销这次修改</button>`;
+}
+function stage(key,value){draft[key]=value;$('#draft-error').hidden=true;updateDraftUI();}
+function applySettings(){
+ const errors=draftErrors();if(errors.length){$('#draft-error').textContent=errors.join('；');$('#draft-error').hidden=false;$('#draft-error').scrollIntoView({block:'nearest'});return;}
+ checkpoint();const before=plan;settings=clone(draft);plan=planner.generate(settings,retained);if(plan.length===21)retained=clone(plan);
+ hasEdited=true;recent={};lastChanged=-1;draft=clone(settings);
+ const changed=plan.filter((p,i)=>!before[i]||p.recipe!==before[i].recipe||p.store.id!==before[i].store.id).length;
+ feedback={title:plan.length===21?'已按新条件生成周计划':'当前条件无法排满一周',detail:plan.length===21?`更新 ${changed} 餐，已锁定餐次保留。预算上限 ¥${settings.budget}。`:'预算没有被提高。可以调整条件，也可以撤销回到上一份餐单。'};
+ render();if(innerWidth<=760)$('#plan-title').scrollIntoView({block:'start',behavior:'smooth'});
+}
+function undo(){if(!history.length||dirty())return;const prior=history.pop();settings=prior.settings;draft=clone(settings);plan=prior.plan;retained=prior.retained;day=prior.day;weekView=prior.weekView;recent=prior.recent;hasEdited=prior.hasEdited;feedback=null;lastChanged=-1;$('#draft-error').hidden=true;render();toast('已撤销，恢复上一步的条件、套餐和锁定状态');}
+function replaceOne(i,result,random=false){
+ if(!result||dirty()||plan[i].locked)return;
+ const before=plan,from=planner.recipe(before[i]),oldDay=planner.daily(before,before[i].day),newDay=planner.daily(result.plan,before[i].day);
+ checkpoint();const oldSeen=random&&result.reset?[]:(recent[i]||[]);recent[i]=[...new Set([...oldSeen,from.id,result.recipe.id])];
+ plan=clone(result.plan);retained=clone(plan);lastChanged=i;hasEdited=true;
+ feedback={title:`${days[plan[i].day]}${meals[plan[i].meal]}：${from.title} → ${result.recipe.title}`,detail:`只换了这一餐 · 整周费用 ${result.delta<0?'减少':result.delta>0?'增加':'不变'}${result.delta?' ¥'+money(Math.abs(result.delta)):''} · 当日能量 ${signed(newDay.kcal-oldDay.kcal,' kcal')} / 蛋白质 ${signed(newDay.protein-oldDay.protein,'g')} / 钠 ${signed(newDay.sodium-oldDay.sodium,'mg')}。营养差距已同步更新。`};
+ render();$('#meal-cards [data-'+(random?'random':'swap')+'="'+i+'"]').focus({preventScroll:true});
+}
+function randomSwap(i){
+ if(dirty()||plan[i]?.locked)return;
+ const seen=[...(recent[i]||[]),plan[i].recipe],result=planner.randomReplacement(plan,i,settings,seen);
+ if(!result){toast('保持其他餐次不变时，没有预算内的替代套餐。可以自己选查看差额，或整周重排。');return;}
+ replaceOne(i,result,true);
+}
+function toast(t){$('#toast').textContent=t;$('#toast').classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#toast').classList.remove('visible'),3500);}
+function syncControls(){
+ for(const k of ['budget','height','weight','age','sex','activity'])$('#'+k).value=draft[k];
+ $('#budget-basis').value=draft.budgetBasis;$('#detour').value=draft.maxDetour;
+ for(const k of ['training','special','coupons'])$('#'+k).checked=draft[k];$('#home-wednesday').checked=draft.homeWednesday;
+ for(const prefix of ['card','gold']){$('#'+prefix).value=draft[prefix];for(const f of ['price','days','uses']){const el=$('#'+prefix+'-'+f);el.value=draft[prefix+f[0].toUpperCase()+f.slice(1)];el.disabled=draft[prefix]==='none';}}
+ for(const attr of ['objective','mode'])$$('[data-'+attr+']').forEach(b=>{const active=b.dataset[attr]===draft[attr];b.classList.toggle('active',active);b.setAttribute('aria-pressed',active);});
+}
+function assessment(p=plan){
+ const target=MaiNutrition.targets(settings);if(!target.valid)return target.errors;
+ if(p.length!==21)return ['当前预算下无法排满 21 份完整套餐'];
+ const out=[];let energy=0,protein=0,salt=0;
+ for(let d=0;d<7;d++){const v=planner.daily(p,d);if(v.kcal<target.kcalMin||v.kcal>target.kcalMax)energy++;if(v.protein<target.protein)protein++;if(v.sodium>=target.sodium)salt++;}
+ if(energy)out.push(energy+' 天热量未进入参考区间');if(protein)out.push(protein+' 天蛋白质未到参考量');if(salt)out.push(salt+' 天钠高于成人参考限量');
+ if(p.some(x=>x.store.minutes>settings.maxDetour))out.push('有锁定套餐超过距离换算时间上限');
+ if(p.some(x=>x.day===2&&x.meal===1&&x.store.id==='office'&&settings.homeWednesday))out.push('周三锁定门店与在家办公冲突');
+ return out;
+}
+const fallbackName=name=>/奶|豆浆|可乐|美式/.test(name)?'🥤':/粥/.test(name)?'🥣':/薯/.test(name)?'🍟':/玉米/.test(name)?'🌽':/苹果/.test(name)?'🍎':'🍔';
+function foodImage(name,cls=''){const f=MAI_DATA.foods[name];return f?.image?`<img class="${cls}" src="${esc(f.image)}" alt="${esc(name)}" loading="lazy" referrerpolicy="no-referrer">`:`<span class="food-icon ${cls}" role="img" aria-label="${esc(name)}">${fallbackName(name)}</span>`;}
+function tray(r){return `<div class="set-tray"><span class="tray-label">${r.items.length} 件 · ${r.kind||'自选组合'}</span>${r.items.map((name,i)=>foodImage(name,['tray-main','tray-side','tray-drink','tray-extra'][i]||'tray-extra')).join('')}</div>`;}
+function valueText(r,price=r.price){const v=planner.valueMetrics(r,price);return `${v.perYuan===null?'—':v.perYuan.toFixed(2)} g / 元 · ${v.per100Kcal===null?'—':v.per100Kcal.toFixed(2)} g / 100 kcal`;}
+function renderValue(){
+ const type=$('#value-type').value,sort=$('#value-sort').value;
+ const storeId=$('#value-store').value,eligible=planner.storesFor(0,1,settings);
+ let rows=planner.active.map(r=>{if(storeId!=='eligible')return planner.forStore(r,storeId);return eligible.map(st=>planner.forStore(r,st.id)).filter(Boolean).sort((a,b)=>a.price-b.price)[0];}).filter(r=>r&&(type==='all'||r.type===type));
+ if(sort==='unit')rows=rows.filter(r=>r.route.length===1);
+ rows.sort((a,b)=>sort==='price'?a.price-b.price:sort==='density'?b.proteinPer100Kcal-a.proteinPer100Kcal:b.proteinPerYuan-a.proteinPerYuan);
+ $('#value-table').innerHTML=`<table><thead><tr><th>买法 / 餐品</th><th>价格</th><th>热量</th><th>蛋白质</th><th>蛋白 / 元</th><th>蛋白 / 100 kcal</th></tr></thead><tbody>${rows.slice(0,12).map(r=>`<tr><td><b>${esc(r.title)}</b><small>${r.kind} · ${MAI_DATA.nearbyStores.find(st=>st.id===r.storeId)?.name||r.source}</small></td><td>¥${money(r.price)}</td><td>${r.kcal} kcal</td><td>${r.protein} g</td><td><b>${r.proteinPerYuan.toFixed(2)} g</b></td><td>${r.proteinPer100Kcal.toFixed(2)} g</td></tr>`).join('')}</tbody></table><p class="value-source">展示排序前 ${Math.min(rows.length,12)} 项 / 当前 ${rows.length} 个候选。价格不含个人新卡支出；周总账另计卡费。</p>`;
+}
+$('#value-store').innerHTML='<option value="eligible">当前距离范围内最低价</option>'+MAI_DATA.nearbyStores.filter(st=>st.priced).map(st=>`<option value="${st.id}">${st.name}</option>`).join('');
+$('#value-sort').onchange=renderValue;$('#value-type').onchange=renderValue;$('#value-store').onchange=renderValue;
+
+function fallbackImages(){$$('img').forEach(img=>{const replace=()=>{const el=document.createElement('span');el.className='food-icon '+img.className;el.textContent=fallbackName(img.alt);el.setAttribute('role','img');el.setAttribute('aria-label',img.alt);img.replaceWith(el);};img.onerror=replace;if(img.complete&&img.naturalWidth===0)replace();});}
+function metric(label,value,foot,cls=''){return `<div class="metric ${cls}"><span class="metric-label">${label}</span><strong class="metric-value">${value}</strong><span class="metric-foot">${foot}</span></div>`;}
+function method(target){return `<p><b>一般成人的规划参考，需结合体重趋势调整。</b>示例资料保存在本页；只有点“保存”才存入当前浏览器。</p><p><a href="https://pubmed.ncbi.nlm.nih.gov/2305711/" target="_blank" rel="noreferrer">Mifflin–St Jeor 公式</a>估算静息能量：10×体重 + 6.25×身高 − 5×年龄 + 性别常数（男 +5 / 女 −161）。再乘活动系数估算维持消耗。</p><p>本演示的产品假设：活动系数 1.2 / 1.375 / 1.55 / 1.725；减脂取维持量 −15%，增肌 +8%，维持不变。参考区间为能量目标 ±10%，不是精确测量。</p><p>蛋白质试排系数：一般维持 1.0g/kg、一般减脂 1.2g/kg；有规律力量训练或选增肌时 1.6g/kg。后者参考 <a href="https://link.springer.com/article/10.1186/s12970-017-0177-8" target="_blank" rel="noreferrer">ISSN 对运动人群的 1.4–2.0g/kg 讨论</a>；其余为演示规划假设，不是该论文给出的通用处方。脂肪暂分配目标能量的 30%，碳水按剩余能量折算。</p><p>钠按 <a href="https://www.who.int/news-room/fact-sheets/detail/sodium-reduction" target="_blank" rel="noreferrer">WHO 成人每日少于 2000mg</a>标记。食品营养来自官方 MCP 快照，按所选份量相加；纤维、饱和脂肪与过敏原信息缺失，不能视为 0，也不能判定三餐营养全面。</p><p>本页仅演示 18–65 岁一般成人；孕哺期、特殊营养管理或低体重减脂不自动规划。范围依据与适用限制可参阅 <a href="https://www.niddk.nih.gov/health-information/weight-management/body-weight-planner" target="_blank" rel="noreferrer">NIDDK 成人体重规划说明</a>，18–65 岁是本演示自行收窄的支持范围。</p>`;}
+function render(){
+ renderValue();syncControls();const target=MaiNutrition.targets(settings),ready=plan.length===21,t=planner.totals(plan,settings),issues=assessment();
+ $('#plan-title').textContent=ready?'下一周，三餐算清楚':'这周的套餐，等待调整';
+ const used=planner.budgetCost(t,settings),basis=settings.budgetBasis==='cash'?'本周现金':'周折算';
+ $('#target-summary').innerHTML=target.valid?`<div class="target-heading"><span class="target-icon">${settings.objective==='loss'?'↘':settings.objective==='gain'?'↗':'↔'}</span><div><b>${target.label}周计划 <span>按当前填写资料估算</span></b><p>${settings.height} cm · ${settings.weight} kg · ${settings.age} 岁，维持消耗约 ${target.tdee} kcal / 天</p></div></div><div class="target-values"><div><small>每日能量参考</small><strong>${target.kcal}<em> kcal</em></strong></div><div><small>蛋白质参考</small><strong>${target.protein}<em> g / 天</em></strong></div><div><small>整周预算上限</small><strong>¥${settings.budget}<em> ${basis}</em></strong></div></div>${target.trainingNote?'<p class="target-note">'+target.trainingNote+'</p>':''}`:`<b>请先调整身体资料或目标</b><p>${esc(target.errors.join('；'))}</p>`;
+ $('#method-content').innerHTML=method(target);
+ $('#metrics').innerHTML=ready?[
+ metric(basis+'预算使用',`<small>¥</small>${money(used)}`,`上限 ¥${settings.budget} · 剩余 ¥${money(settings.budget*100-used)}`,'budget-metric'),
+ metric('平均每天热量',Math.round(t.kcal/7)+'<small> kcal</small>',`参考 ${target.kcalMin}–${target.kcalMax} kcal`),
+ metric('平均每天蛋白质',(t.protein/7).toFixed(0)+'<small> g</small>',`参考 ${target.protein} g / 天`),
+ metric('整套搭配',t.unique+'<small> 种 / 21 餐</small>','单点、1+1、套餐、加购一起比')].join(''):metric('预算上限','<small>¥</small>'+settings.budget,'未生成超预算餐单');
+ $('#plan-status').classList.toggle('warning',!!issues.length);
+ $('#plan-status').textContent=ready?`✓ ${basis}在上限内。${issues.length?'△ '+issues.join('；')+'。这是一份待调整草案，不能据此认定适合长期全天食用。':'能量和蛋白质参考已满足；其他营养仍需补齐核验。'}`:issues.join('；');
+ $('#empty-state').hidden=ready;
+ if(!ready){const min=planner.minimum(settings,retained);$('#empty-state').innerHTML=target.valid?`<span class="empty-icon">⌁</span><h3>这个预算，暂时排不满一周。</h3><p>在当前套餐候选、卡券及锁定条件下，21 餐最低试算需 <b>¥${money(min)}</b>。不会自动加预算，也不会省掉配餐或饮品凑数。</p><p>最低价只说明能排满餐次，不代表营养目标达标。可以提高预算，或在正式 Skill 中改为只规划部分餐次。</p>${min<=150000?`<button class="outlined" data-raise="${Math.ceil(min/1000)*10}">我同意将预算改为 ¥${Math.ceil(min/1000)*10}</button>`:''}${retained.some(p=>p.locked)?'<button class="outlined" id="unlock-all">解锁全部套餐再试</button>':''}`:`<h3>暂不生成自动套餐</h3><p>${esc(target.errors.join('；'))}</p>`;}
+ for(const sel of ['.set-note','#day-tabs','.day-heading','#day-summary','.benefit-comparison','.assistant-bar','.prompt-chips','#prompt-form','#prompt-response'])$(sel).hidden=!ready;
+ $('#meal-cards').hidden=!ready||weekView;$('#week-grid').hidden=!ready||!weekView;
+ $('#save').disabled=!ready;$('#export').disabled=!ready;
+ if(!ready){$('#meal-cards').innerHTML='';$('#week-grid').innerHTML='';updateDraftUI();return;}
+ $('#day-tabs').innerHTML=days.map((d,i)=>`<button class="day-tab ${i===day?'active':''}" role="tab" id="day-${i}" aria-selected="${i===day}" aria-controls="meal-cards" data-day="${i}"><span class="weekday">${d}</span><span class="date">${19+i}</span><span class="daily-price">¥${money(t.ledger.slice(i*3,i*3+3).reduce((n,x)=>n+(settings.budgetBasis==='cash'?x.cashMeal:x.net),0))}</span></button>`).join('');
+ $('#day-title').innerHTML=weekView?'七天套餐，一眼看完':`${days[day]} · ${day===2&&settings.homeWednesday?'在家办公':day<5?'工作日三餐':'周末三餐'}<span>10.${19+day}</span>`;
+ $('#meal-cards').setAttribute('aria-labelledby','day-'+day);
+ $('#meal-cards').innerHTML=plan.slice(day*3,day*3+3).map((slot,j)=>{
+  const i=day*3+j,r=planner.recipe(slot),bill=t.ledger[i];
+  return `<article data-meal-index="${i}" class="meal-card ${i===lastChanged?'just-changed':''} ${slot.locked?'locked':''}"><div class="meal-card-top"><span class="meal-label">${['☀','◒','☾'][j]} ${meals[j]}<time>${times[j]}</time></span><button class="lock-button" data-lock="${i}" aria-pressed="${slot.locked}" aria-label="${slot.locked?'解锁':'锁定'}${days[day]}${meals[j]}">${slot.locked?'● 已锁定':'○ 锁定'}</button></div>${tray(r)}<div class="meal-info"><span class="set-type">${r.kind} · ${r.items.length} 件</span><h4>${r.title}</h4><ul class="set-components">${r.items.map((name,k)=>`<li><span>${k===0?'主食':/奶|豆浆|可乐|美式/.test(name)?'饮品':/堡|麦满分/.test(name)?'加餐':'配餐'}</span>${esc(name)}<small>×1</small></li>`).join('')}</ul><div class="meal-macros"><b>${r.kcal}<small> kcal / 整套</small></b><span>蛋白质 <b>${r.protein}g</b></span><span>碳水 ${r.carbs}g · 脂肪 ${r.fat}g</span><span>钠 ${r.sodium}mg</span></div><div class="meal-price"><strong><small>整套餐费 ¥</small>${money(bill.cashMeal)}</strong><span class="discount-tag">${r.source}</span></div><div class="protein-value"><b>${valueText(r,bill.cashMeal)}</b><span>约 ¥${(planner.valueMetrics(r,bill.cashMeal).cost20g||0).toFixed(2)} / 20g 蛋白质（比较指标）</span></div><p class="meal-cost-breakdown">餐次含卡分摊 ¥${money(bill.net)} · 全部食物已计入</p><details class="buy-route"><summary>为什么这样买？查看购买明细</summary>${r.route?r.route.map(o=>`<p>${esc(o.kind)} · ${esc(o.title)} <b>¥${money(o.price)}</b></p>`).join(''):'<p>旧版演示价格，不属于本次核价候选。</p>'}<p>${r.legacy?'此为保留的旧版草案，可重新生成使用新价格。':'单点与组合按相同食物数量比较购买成本；不是所有套餐都比单点便宜。门店快照，未来需复核。'}</p><div class="meal-store-prices">${MAI_DATA.nearbyStores.filter(st=>st.priced).map(st=>{const local=planner.forStore(r,st.id);return `<p>${st.name} · ${st.distance}m <b>${local?'¥'+money(local.price):'未取得完整报价'}</b>${st.id===slot.store.id?' · 本餐选择':''}${st.minutes>settings.maxDetour?' · 超出距离范围':''}</p>`;}).join('')}</div></details><p class="meal-route">⌖ ${slot.store.name} · 约 ${slot.store.distance}m / 参考 ${slot.store.minutes} 分钟</p><div class="meal-actions"><button class="random-button" data-random="${i}" ${slot.locked?'disabled':''} aria-label="随机换${days[day]}${meals[j]}">⚄ ${slot.locked?'已锁定':'随机换一套'}</button><button class="choose-button" data-swap="${i}" ${slot.locked?'disabled':''} aria-label="自己选${days[day]}${meals[j]}">自己选 ›</button></div><p class="swap-hint">${slot.locked?'解锁后可换餐':'预算内随机，优先营养接近 · 可撤销'}</p></div></article>`;
+ }).join('');
+ $('#week-grid').innerHTML=`<table class="week-table"><thead><tr><th>日期</th>${meals.map(x=>`<th>${x}</th>`).join('')}<th>每日营养</th></tr></thead><tbody>${days.map((d,i)=>{const v=planner.daily(plan,i);return `<tr><td>${d}<br>10.${19+i}</td>${plan.slice(i*3,i*3+3).map((p,j)=>{const r=planner.recipe(p);return `<td><button data-jump="${i}"><b>${r.title}${p.locked?' ●':''}</b></button><p>${r.items.join(' + ')}</p><small>${r.kcal} kcal · P ${r.protein}g<br>整套 ¥${money(t.ledger[i*3+j].cashMeal)}</small></td>`;}).join('')}<td>${v.kcal} kcal<br>蛋白 ${v.protein}g<br>碳水 ${v.carbs}g<br>脂肪 ${v.fat}g<br>钠 ${v.sodium}mg</td></tr>`;}).join('')}</tbody></table>`;
+ const d=planner.daily(plan,day);
+ const rings=[{label:'热量',key:'kcal',target:target.kcal,unit:'kcal',color:'#d7193f',radius:76},{label:'蛋白质',key:'protein',target:target.protein,unit:'g',color:'#eaa400',radius:58},{label:'脂肪',key:'fat',target:target.fat,unit:'g',color:'#292929',radius:40}];
+ const dayCash=t.ledger.slice(day*3,day*3+3).reduce((n,x)=>n+x.cashMeal,0);
+ const ringLabel=r=>`${r.label} ${d[r.key]} / ${r.target} ${r.unit}，${Math.round(d[r.key]/r.target*100)}%`;
+ $('#day-summary').innerHTML=`<div class="daily-activity"><svg viewBox="0 0 180 180" class="activity-rings" role="img" aria-label="${days[day]}营养进度：${rings.map(ringLabel).join('；')}"><title>${days[day]}营养参考进度</title>${rings.map(r=>{const circle=2*Math.PI*r.radius,p=Math.min(1,Math.max(0,d[r.key]/r.target));return `<circle class="ring-track" cx="90" cy="90" r="${r.radius}" fill="none" stroke="${r.color}" stroke-opacity=".12" stroke-width="12"/><circle class="ring-progress" cx="90" cy="90" r="${r.radius}" fill="none" stroke="${r.color}" stroke-width="12" stroke-linecap="round" stroke-dasharray="${p*circle} ${circle}" transform="rotate(-90 90 90)"/>`;}).join('')}<text x="90" y="88" text-anchor="middle" class="ring-center-day">${days[day]}</text><text x="90" y="105" text-anchor="middle" class="ring-center-label">营养进度</text></svg><div class="ring-legend"><h4>${days[day]} · 今日营养</h4>${rings.map(r=>{const diff=d[r.key]-r.target;return `<div class="ring-stat"><i style="background:${r.color}"></i><div><span>${r.label}</span><b>${d[r.key]} <small>/ ${r.target} ${r.unit}</small></b></div><em>${diff>0?'高于参考 '+diff:r.key==='protein'&&diff<0?'还差 '+(-diff):diff===0?'达到参考':'剩余参考 '+(-diff)}${diff!==0?' '+r.unit:''}</em></div>`;}).join('')}</div></div><div class="daily-facts"><span>碳水 <b>${d.carbs}g</b></span><span class="${d.sodium>=target.sodium?'salt-warning':''}">钠 <b>${d.sodium}mg</b>${d.sodium>=target.sodium?' · 偏高':''}</span><span>当天餐费 <b>¥${money(dayCash)}</b></span></div><details class="daily-detail"><summary>查看营养差距与参考说明</summary><p>能量参考区间 ${target.kcalMin}–${target.kcalMax} kcal；蛋白质参考 ${target.protein}g；碳水参考 ${target.carbs}g；脂肪参考 ${target.fat}g；钠参考少于 ${target.sodium}mg。</p><p>${d.kcal<target.kcalMin?'当天能量偏低。':d.kcal>target.kcalMax?'当天能量偏高。':''}${d.protein<target.protein?'蛋白质还差 '+(target.protein-d.protein)+'g。':''}${d.sodium>=target.sodium?'钠偏高，需要调整食物或部分餐次。':''}满环表示达到或超过参考值，不表示营养全面。脂肪和热量不是越多越好。膳食纤维、饱和脂肪和过敏原资料缺失。</p><p>当天餐费不重复计入整周新卡全额；卡费和分摊看周总账。</p></details>`;
+ $('#day-summary').hidden=false;
+ $('#daily-view').classList.toggle('active',!weekView);$('#week-view').classList.toggle('active',weekView);$('#daily-view').setAttribute('aria-pressed',!weekView);$('#week-view').setAttribute('aria-pressed',weekView);
+ $('#card-summary').innerHTML=`<div class="ledger-overview"><b>整周现金 ¥${money(t.cashTotal)}</b><b>整周折算 ¥${money(t.total)}</b><span>新开卡付款 ¥${money(t.purchaseFees)} · 本周卡费分摊 ¥${money(t.fee)}</span></div><p class="card-cost-note">上方每日标签展示餐次费用；新卡全额付款或未使用卡的分摊额只计入整周总账，不重复加到每天。</p>${t.cardRows.map(c=>`<div class="card-cost-row"><div><b>${c.name}</b><small>¥${money(c.price)} / ${c.days} 天</small></div><span>本周分摊<strong>¥${money(c.weeklyFee)}</strong></span><span>用卡<strong>${c.used} 次</strong></span><span>每次分摊<strong>${c.perUse===null?'—':'¥'+money(c.perUse)}</strong></span></div><p class="card-cost-note">优惠 ¥${money(c.grossSavings)} − 分摊 ¥${money(c.weeklyFee)} = ${c.netSaving>=0?'净省':'增加成本'} ¥${money(Math.abs(c.netSaving))}。${c.used===0?'未使用的卡费仍保留。':''}${c.state==='new'?'本周另付全额开卡费。':'本周不重复付开卡费。'}</p>`).join('')}`;
+ const variants=[['不持付费卡','none','none'],['仅早餐卡',settings.card==='none'?'new':settings.card,'none'],['仅麦金卡','none',settings.gold==='none'?'new':settings.gold],['两张都持有',settings.card==='none'?'new':settings.card,settings.gold==='none'?'new':settings.gold]];
+ $('#card-comparison').innerHTML=`<table><thead><tr><th>同一餐单比较</th><th>周折算</th><th>本周现金</th></tr></thead><tbody>${variants.map(([label,card,gold])=>{const x=planner.totals(plan,{...settings,card,gold});return `<tr><td>${label}</td><td>¥${money(x.total)}</td><td>¥${money(x.cashTotal)}</td></tr>`;}).join('')}</tbody></table><p>“不持卡”假设从未购卡，不表示已购卡能退款。使用次数设为 0 时仍保留已购卡分摊。</p>`;
+ fallbackImages();updateDraftUI();
+}
+for(const k of ['budget','height','weight','age'])$('#'+k).oninput=e=>stage(k,e.target.value===''?null:Number(e.target.value));
+for(const [id,key,numeric] of [['sex','sex',false],['activity','activity',true],['budget-basis','budgetBasis',false],['detour','maxDetour',true]])$('#'+id).onchange=e=>stage(key,numeric?Number(e.target.value):e.target.value);
+for(const [id,key] of [['training','training'],['special','special'],['coupons','coupons'],['home-wednesday','homeWednesday']])$('#'+id).onchange=e=>stage(key,e.target.checked);
+for(const attr of ['objective','mode'])$$('[data-'+attr+']').forEach(b=>b.onclick=()=>stage(attr,b.dataset[attr]));
+for(const prefix of ['card','gold']){
+ $('#'+prefix).onchange=e=>stage(prefix,e.target.value);
+ for(const f of ['price','days','uses'])$('#'+prefix+'-'+f).oninput=e=>stage(prefix+f[0].toUpperCase()+f.slice(1),e.target.value===''?null:Number(e.target.value));
+}
+$('#preferences').onkeydown=e=>{if(e.key==='Enter'&&e.target.tagName==='INPUT'&&e.target.type==='number'){e.preventDefault();applySettings();}};
+$('#regenerate').onclick=applySettings;$('#apply-settings').onclick=applySettings;
+$('#discard-settings').onclick=()=>{draft=clone(settings);$('#draft-error').hidden=true;syncControls();updateDraftUI();};
+$('#undo').onclick=undo;$('#change-feedback').onclick=e=>{if(e.target.closest('#undo-change'))undo();};
+$('#edit-conditions').onclick=()=>{$('#preferences').scrollIntoView({block:'start',behavior:'smooth'});$('#budget').focus({preventScroll:true});};
+$('#reroll-week').onclick=()=>{
+ if(dirty()||plan.length!==21)return;if(plan.every(p=>p.locked)){toast('21 餐都已锁定，先解锁想更换的餐次');return;}
+ const old=plan;let next=null,seed=settings.seed;
+ for(let n=0;n<12;n++){seed++;const candidate=planner.generate({...settings,seed},plan);if(candidate.length===21&&candidate.some((p,i)=>p.recipe!==plan[i].recipe||p.store.id!==plan[i].store.id)){next=candidate;break;}}
+ if(!next){toast('当前约束下暂未找到不同的整周方案，可试试单餐随机换');return;}
+ checkpoint();settings.seed=seed;draft=clone(settings);plan=next;retained=clone(plan);recent={};hasEdited=true;lastChanged=-1;
+ feedback={title:'整周重新安排好了',detail:`共更换 ${plan.filter((p,i)=>p.recipe!==old[i].recipe||p.store.id!==old[i].store.id).length} 餐；预算上限和已锁定套餐保留。可以撤销回原方案。`};render();
+};
+$('#empty-state').onclick=e=>{const b=e.target.closest('[data-raise]');if(b){stage('budget',Number(b.dataset.raise));syncControls();applySettings();}if(e.target.id==='unlock-all'&&!dirty()){checkpoint();retained=retained.map(p=>({...p,locked:false}));plan=planner.generate(settings,retained);if(plan.length===21)retained=clone(plan);hasEdited=true;feedback={title:'已解锁套餐并重新尝试',detail:'预算上限保持不变。'};render();}};
+$('#day-tabs').onclick=e=>{const b=e.target.closest('[data-day]');if(b){day=Number(b.dataset.day);weekView=false;render();}};
+$('#day-tabs').onkeydown=e=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;e.preventDefault();day=e.key==='Home'?0:e.key==='End'?6:(day+(e.key==='ArrowRight'?1:6))%7;weekView=false;render();$('#day-'+day).focus();};
+$('#daily-view').onclick=()=>{weekView=false;render();};$('#week-view').onclick=()=>{weekView=true;render();};$('#week-grid').onclick=e=>{const b=e.target.closest('[data-jump]');if(b){day=Number(b.dataset.jump);weekView=false;render();}};
+$('#meal-cards').onclick=e=>{
+ if(dirty())return;const lock=e.target.closest('[data-lock]'),swap=e.target.closest('[data-swap]'),random=e.target.closest('[data-random]');
+ if(lock){const i=Number(lock.dataset.lock);checkpoint();plan[i].locked=!plan[i].locked;retained=clone(plan);hasEdited=true;feedback={title:plan[i].locked?'已锁定这套餐':'已解锁这套餐',detail:`${days[plan[i].day]}${meals[plan[i].meal]} · ${planner.recipe(plan[i]).title}。${plan[i].locked?'整周重排时也会保留。':'可以随机换或自己选。'}`};render();$('#meal-cards [data-lock="'+i+'"]').focus({preventScroll:true});}
+ if(random)randomSwap(Number(random.dataset.random));if(swap)openSwap(Number(swap.dataset.swap));
+};
+function renderSwapOptions(){
+ const sort=$('#swap-sort').value,opts=swapOptions.slice().sort((a,b)=>Number(b.allowed)-Number(a.allowed)||(sort==='price'?a.delta-b.delta:sort==='protein'?b.recipe.protein-a.recipe.protein:sort==='value'?b.recipe.proteinPerYuan-a.recipe.proteinPerYuan:sort==='density'?b.recipe.proteinPer100Kcal-a.recipe.proteinPer100Kcal:a.score-b.score));
+ $('#swap-count').textContent=`${opts.filter(x=>x.allowed).length} 套可在预算内直接替换`;
+ $('#swap-options').innerHTML=opts.map(o=>{const r=o.recipe;return `<button class="swap-option" data-alternative="${r.id}" aria-pressed="false" ${o.allowed?'':'disabled'}>${foodImage(r.main)}<div><b>${r.title}</b><p>${r.items.join(' + ')}</p><p>${r.kcal} kcal · 蛋白 ${r.protein}g · 碳水 ${r.carbs}g · 脂肪 ${r.fat}g</p><p>¥${money(r.price)} · ${valueText(r)}</p></div><strong>${o.allowed?(o.delta===0?'费用不变':(o.delta>0?'+':'−')+'¥'+money(Math.abs(o.delta))):'超预算 ¥'+money(o.excess)}<small>${o.allowed?'替换后整周费用变化':'保持其他餐次不变'}</small></strong></button>`;}).join('');
+ swapPlan=null;$('#apply-swap').disabled=true;$('#swap-impact').textContent='选一套查看差额。不会重排其他餐次，也不会自动锁定。';fallbackImages();
+}
+function openSwap(i){if(plan[i].locked||dirty())return;swapIndex=i;swapOptions=planner.replacementOptions(plan,i,settings);$('#swap-sort').value='similar';$('#swap-title').textContent=days[plan[i].day]+meals[plan[i].meal]+'，自己选一套';renderSwapOptions();$('#swap-dialog').showModal();}
+$('#swap-sort').onchange=renderSwapOptions;
+$('#swap-options').onclick=e=>{const b=e.target.closest('[data-alternative]');if(!b||b.disabled)return;const o=swapOptions.find(x=>x.recipe.id===b.dataset.alternative);if(!o?.allowed)return;swapPlan=o;
+ $$('.swap-option').forEach(x=>{x.classList.toggle('selected',x===b);x.setAttribute('aria-pressed',x===b);});$('#apply-swap').disabled=false;
+ const before=planner.recipe(plan[swapIndex]),r=o.recipe;
+ $('#swap-impact').innerHTML=`本周${settings.budgetBasis==='cash'?'现金':'折算'} <b>¥${money(planner.budgetCost(o.after,settings))}</b> / 上限 ¥${settings.budget}。<br>本餐 ¥${money(r.price)} · ${valueText(r)}。<br>本餐能量 ${signed(r.kcal-before.kcal,' kcal')}，蛋白 ${signed(r.protein-before.protein,'g')}，钠 ${signed(r.sodium-before.sodium,'mg')}。<br>只替换这一餐，其余 20 餐保持不变。${assessment(o.plan).length?'<br>营养待调整：'+esc(assessment(o.plan).join('；')):''}`;
+};
+$('#apply-swap').onclick=()=>{if(!swapPlan?.allowed)return;$('#swap-dialog').close();replaceOne(swapIndex,swapPlan);};
+function prompt(text){
+ if(dirty())return;let response='';
+ if(/附近|门店|周三.*在家/.test(text)){$('#proof').scrollIntoView({behavior:'smooth'});response='已展示天津时代奥城附近门店。同一餐逐店核价；公司地点还未设置，当前不能计算真实通勤路线。';}
+ else if(/周五.*双吉/.test(text)){
+  if(plan.length!==21)return;const o=planner.replacementOptions(plan,13,settings).find(x=>x.recipe.title==='双吉＋小玉米 1+1'&&x.allowed);
+  if(o){day=4;weekView=false;replaceOne(13,o);response='周五午餐换为双吉＋小玉米 1+1，其余 20 餐不变。喜欢的话可以锁定。';}
+  else response=planner.recipe(plan[13]).title==='双吉＋小玉米 1+1'?'周五午餐已经是双吉＋小玉米 1+1。':plan[13].locked?'周五午餐已锁定，请先解锁。':'当前门店没有可用报价，或保留其他餐次时会超预算；可整周重排再比较附近门店。';
+ }else if(/口味|吃腻/.test(text)){draft={...settings,mode:'variety',seed:settings.seed+1};applySettings();response='整周提高口味变化的优先级，保留预算上限和已锁定套餐。';}
+ else response='演示支持上方三个指令；也可以直接随机换一餐。';
+ $('#prompt-response').textContent=response;$('#prompt').value='';
+}
+$$('[data-prompt]').forEach(b=>b.onclick=()=>prompt(b.dataset.prompt));$('#prompt-form').onsubmit=e=>{e.preventDefault();const t=$('#prompt').value.trim();if(t)prompt(t);};
+function info(title,html){$('#info-title').textContent=title;$('#info-content').innerHTML=html;$('#info-dialog').showModal();}
+$('#about').onclick=()=>info('一日三麦 Skill · 演示范围','<p>这是安装在 AI 助手里的 Skill 的输出演示。核心流程是：每周预算 → 身体资料与目标 → 七天完整套餐 → 营养差距 → 卡券与通勤。</p><p><b>真实来源：</b>官方 MCP 160 条营养记录、所选餐品营养、商品图片、官方套餐入口、三店麦香鸡报价快照。</p><p><b>本地已实现：</b>身体参数估算、整套营养汇总、预算硬上限、换整套、锁定、卡费分摊、保存与导出。</p><p><b>仍为演示：</b>价格为天津时代奥城周边三店快照，复合餐按核价单元相加；卡权益、未采样门店和未来价格未核验。不保证有限候选的整周全局最优。</p><p>真实账户卡券、自动任务、下单与付款尚未接通。本页不使用凭证，不会交易。预算内也可能存在营养缺口，须看每日差距。</p>');
+$('#save').onclick=()=>{if(plan.length!==21||dirty())return;try{localStorage.setItem(storageKey,JSON.stringify({version:3,settings,plan:plan.map(p=>({recipe:p.recipe,store:p.store.id,locked:p.locked}))}));savedFingerprint=fingerprint();hasEdited=true;updateDraftUI();toast('已保存当前 21 套餐和资料；下次打开原样恢复');}catch(_){info('暂时无法保存','<p>可用导出功能保存餐单。</p>');}};
+$('#export').onclick=()=>{if(plan.length!==21||dirty())return;const t=planner.totals(plan,settings),target=MaiNutrition.targets(settings);let content=`# 一日三麦 · 2026.10.19—10.25 套餐草案\n\n预算上限 ¥${settings.budget}（${settings.budgetBasis==='cash'?'本周现金':'周折算'}）。现金 ¥${money(t.cashTotal)}；周折算 ¥${money(t.total)}；新卡付款 ¥${money(t.purchaseFees)}；周卡费分摊 ¥${money(t.fee)}。\n\n档案：${settings.height}cm / ${settings.weight}kg / ${settings.age}岁；${target.label}。每日参考 ${target.kcal} kcal、蛋白 ${target.protein}g、碳水 ${target.carbs}g、脂肪 ${target.fat}g、钠 <2000mg。\n\n待调整：${assessment().join('；')||'完整营养仍需核验'}。\n\n`;days.forEach((d,i)=>{content+=`## ${d}\n\n`;plan.slice(i*3,i*3+3).forEach((p,j)=>{const r=planner.recipe(p),b=t.ledger[i*3+j];content+=`- ${meals[j]}：${r.title}（${r.kind}）。${r.items.join(' + ')}。${r.kcal} kcal / 蛋白 ${r.protein}g / 碳水 ${r.carbs}g / 脂肪 ${r.fat}g / 钠 ${r.sodium}mg。整套餐费 ¥${money(b.cashMeal)}，卡分摊 ¥${money(b.cardShare)}，折算 ¥${money(b.net)}；${p.store.name}，接口距离 ${p.store.distance}m，按80米/分钟换算约 ${p.store.minutes} 分钟（非导航）${p.locked?'；锁定':''}。\n`;});const v=planner.daily(plan,i);content+=`\n全天：${v.kcal} kcal，蛋白 ${v.protein}g，碳水 ${v.carbs}g，脂肪 ${v.fat}g，钠 ${v.sodium}mg。\n\n`;});t.cardRows.forEach(c=>content+=`${c.name}：¥${money(c.price)} / ${c.days} 天，本周分摊 ¥${money(c.weeklyFee)}，实际用卡 ${c.used} 次，每次分摊 ${c.perUse===null?'未使用':'¥'+money(c.perUse)}。\n\n`);content+='营养来自官方 MCP 2026-10-18 快照；购买单元为天津时代奥城三店核价快照；复合搭配按单元相加，未来价格与权益、路线待核验。估算方法见页面说明。纤维、饱和脂肪、过敏原缺失，不代表 0。不构成营养处方。没有创建订单或任务。\n\n参考：[Mifflin 公式](https://pubmed.ncbi.nlm.nih.gov/2305711/) · [ISSN 运动人群蛋白质](https://link.springer.com/article/10.1186/s12970-017-0177-8) · [WHO 钠](https://www.who.int/news-room/fact-sheets/detail/sodium-reduction)\n';const url=URL.createObjectURL(new Blob([content],{type:'text/markdown;charset=utf-8'})),a=document.createElement('a');a.href=url;a.download='一日三麦-周套餐草案.md';a.click();setTimeout(()=>URL.revokeObjectURL(url),1500);toast('整周套餐已导出，包含营养和费用明细');};
+$('#reset').onclick=()=>{try{localStorage.removeItem(storageKey);localStorage.removeItem('yirisanmai-demo-v2');}catch(_){}settings={...MaiPlanner.defaults};draft=clone(settings);retained=[];day=0;weekView=false;history=[];recent={};feedback=null;lastChanged=-1;savedFingerprint=null;hasEdited=false;plan=planner.generate(settings);retained=clone(plan);$('#draft-error').hidden=true;render();toast('已恢复示例资料，删除本页保存的数据');};
+const compareOffers=['s-正餐-1406','o-double-corn','o-breakfast-soy'];
+$('#store-comparison').innerHTML=`<div class="value-table-wrap"><table><thead><tr><th>附近门店</th><th>单点板烧</th><th>双吉＋玉米 1+1</th><th>双蛋堡＋豆浆</th></tr></thead><tbody>${MAI_DATA.nearbyStores.filter(st=>st.priced).map(st=>`<tr><td><b>${st.name}</b><small>${st.distance}m · ${st.hours}</small></td>${compareOffers.map(id=>{const o=MAI_DATA.offers.find(o=>o.id===id),q=o?.storeQuotes[st.id];return `<td>${q?'¥'+money(q.price):'本次无报价'}</td>`;}).join('')}</tr>`).join('')}</tbody></table></div><p class="value-source">单品便宜，不代表所有套餐都便宜。不能把双吉缺项的 13.9 元起价当成双吉套餐价。</p>`;
+$('#official-sets').innerHTML=MAI_DATA.officialSets.map(x=>`<article><img src="${esc(x.image)}" alt="${esc(x.name)}" loading="lazy"><b>${esc(x.name)}</b><small>官方套餐入口 · ${x.code}</small><span>菜单曾展示 ¥${esc(x.menuPrice)}起</span><small>${esc(x.condition)} · 待核验规格/权益</small></article>`).join('');
+function replay(){traceTimers.forEach(clearTimeout);const steps=[['先读预算和身体档案',`当前上限 ¥${settings.budget}，${settings.height}cm / ${settings.weight}kg，${MaiNutrition.labels[settings.objective]}目标。`],['估算目标，再查整套候选','身体参数换算每日参考；真实营养快照参与每套组合计算。'],['先卡预算，再排 21 餐','使用核价单元，比较单点和套餐；保留锁定餐次，超预算候选不能通过。'],['呈现差距，支持整套替换','只换选定套餐，保留其他餐次；展示费用和营养变化，支持撤销。'],['保存草案，临近用餐再核验','实际套餐规格、价格和权益待核验；不会直接下单。']];$('#trace-steps').innerHTML=steps.map((s,i)=>`<li class="trace-step" id="trace-${i}"><b>${i+1}　${s[0]}</b><p>${s[1]}</p></li>`).join('');$('#trace-dialog').showModal();traceTimers=steps.map((_,i)=>setTimeout(()=>$('#trace-'+i)?.classList.add('done'),i*700));}
+$('#replay').onclick=replay;$('#workflow-replay').onclick=replay;$('#trace-dialog').addEventListener('close',()=>traceTimers.forEach(clearTimeout));$$('.close-dialog').forEach(b=>b.onclick=()=>b.closest('dialog').close());$$('dialog').forEach(d=>d.addEventListener('click',e=>{if(e.target===d){const b=d.getBoundingClientRect();if(e.clientX<b.left||e.clientX>b.right||e.clientY<b.top||e.clientY>b.bottom)d.close();}}));
+if(plan.length!==21)plan=planner.generate(settings,retained);retained=clone(plan);render();
+})();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+interface:
+  display_name: "一日三麦"
+  short_description: "预算优先安排一周三餐，比较周边麦当劳单点、套餐及蛋白质性价比"
+  default_prompt: "使用 $yi-ri-san-mai：按我的周预算、身体资料和地点，比较附近麦当劳的单点与套餐，安排一周三餐并列出营养差距。"
