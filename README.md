@@ -124,6 +124,8 @@ python3 -m unittest discover -s tests -v
 
 <details><summary><strong>参赛信息</strong></summary>
 
+报名已提交：[官方 Issue #856](https://github.com/M-China/mcd-developer-innovation-challenge/issues/856)，校验结果以官方回复为准。
+
 参加麦当劳程序员创意开发大赛，[参赛声明](CONTEST_DECLARATION.md)为官方原文。使用Codex开发，不申报WorkBuddy专项；报名状态以官方Issue回执为准。同一账号仅Star最高项目进入排行榜，同分按最早报名处理。
 
 </details>
